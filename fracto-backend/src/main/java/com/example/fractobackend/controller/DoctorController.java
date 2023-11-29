@@ -1,7 +1,7 @@
 package com.example.fractobackend.controller;
 
 import com.example.fractobackend.exception.ResourceNotFoundException;
-import com.example.fractobackend.entities.Doctor;
+import com.example.fractobackend.entity.Doctor;
 import com.example.fractobackend.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

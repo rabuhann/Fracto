@@ -1,4 +1,4 @@
-package com.example.fractobackend.entities;
+package com.example.fractobackend.entity;
 
 import jakarta.persistence.*;
 

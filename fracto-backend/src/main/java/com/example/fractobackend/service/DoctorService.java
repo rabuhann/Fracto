@@ -1,7 +1,7 @@
 package com.example.fractobackend.service;
 
 
-import com.example.fractobackend.entities.Doctor;
+import com.example.fractobackend.entity.Doctor;
 
 import java.util.List;
 import java.util.Optional;
