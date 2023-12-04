@@ -1,28 +1,48 @@
 package com.example.fractobackend.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="role")
 public class Role {
 
     @Id
-    private String roleName;
-    private String roleDescription;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-    public String getRoleName() {
-        return roleName;
+    private String role;
+
+
+
+    public Role() {
+        super();
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public Role(String role) {
+        super();
+        this.role = role;
     }
 
-    public String getRoleDescription() {
-        return roleDescription;
+    public int getId() {
+        return id;
     }
 
-    public void setRoleDescription(String roleDescription) {
-        this.roleDescription = roleDescription;
+    public void setId(int id) {
+        this.id = id;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+
+
 }
