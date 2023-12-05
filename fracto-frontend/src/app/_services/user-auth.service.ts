@@ -1,12 +1,22 @@
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserAuthService {
+  private _isAuthenticated = false;
 
-  constructor() { }
+  constructor() {}
 
+  public setAuthenticated(value: boolean) {
+    this._isAuthenticated = value;
+  }
+
+  public isAuthenticated(): boolean {
+    return this._isAuthenticated;
+  }
+  
   public setRoles(roles: []) {
     localStorage.setItem("roles", JSON.stringify(roles));
   }
@@ -21,6 +31,6 @@ export class UserAuthService {
   }
 
   public isLoggedIn() {
-    return this.getRoles();
+    return this.getRoles()&& this.isAuthenticated();
   }
 }
