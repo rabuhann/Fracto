@@ -5,7 +5,6 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 
 public class SignupDto {
-	//private String userName;
     private String userName;
     private String email;
     private String password;
