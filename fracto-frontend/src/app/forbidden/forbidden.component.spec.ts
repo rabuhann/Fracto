@@ -6,14 +6,10 @@ describe('ForbiddenComponent', () => {
   let component: ForbiddenComponent;
   let fixture: ComponentFixture<ForbiddenComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ForbiddenComponent ]
-    })
-    .compileComponents();
-  });
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [ForbiddenComponent]
+    });
     fixture = TestBed.createComponent(ForbiddenComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

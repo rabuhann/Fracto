@@ -1,25 +1,19 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class UserAuthService {
-  constructor() {}
+
+  constructor() { }
 
   public setRoles(roles: []) {
-    localStorage.setItem('roles', JSON.stringify(roles));
+    localStorage.setItem("roles", JSON.stringify(roles));
   }
 
-  public getRoles(): [] {
-    return JSON.parse(localStorage.getItem('roles') || '{}');
-  }
-
-  public setToken(jwtToken: string) {
-    localStorage.setItem('jwtToken', jwtToken);
-  }
-
-  public getToken(): string {
-    return localStorage.getItem('jwtToken') || '{}';
+  public getRoles(): string[] {
+    const rolesJson = localStorage.getItem("roles") ?? "[]"; // Use an empty array as a default if null
+    return JSON.parse(rolesJson);
   }
 
   public clear() {
@@ -27,6 +21,6 @@ export class UserAuthService {
   }
 
   public isLoggedIn() {
-    return this.getRoles() && this.getToken();
+    return this.getRoles();
   }
 }
