@@ -2,7 +2,8 @@ package com.example.fractobackend.dto;
 
 public class LoginDto {
 	private String email;
-    private String password;   
+    private String password;
+    
     public LoginDto() {      }   
     public String getEmail() {      
         return email;   
