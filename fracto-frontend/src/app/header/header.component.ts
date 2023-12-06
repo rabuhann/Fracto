@@ -13,19 +13,18 @@ export class HeaderComponent implements OnInit {
     private userAuthService: UserAuthService,
     private router: Router,
     public userService: UserService
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   public isLoggedIn() {
     return this.userAuthService.isLoggedIn();
   }
 
   public logout() {
-    this.userAuthService.setAuthenticated(false); // Set authentication state to false first
     this.userAuthService.clear();
     this.router.navigate(['/home']);
+    this.userAuthService.setAuthenticated(false);
   }
 
 }
-
