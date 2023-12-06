@@ -12,11 +12,6 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { AuthGuard } from './_auth/auth.guard';
-import { AuthInterceptor } from './_auth/auth.interceptor';
-import { UserService } from './_services/user.service';
-import { CommonModule } from '@angular/common';
-import { TestComponent } from './_services/test.component';
 
 @NgModule({
   declarations: [
@@ -26,26 +21,16 @@ import { TestComponent } from './_services/test.component';
     UserComponent,
     LoginComponent,
     HeaderComponent,
-    ForbiddenComponent,
-    TestComponent
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    RouterModule,
-    CommonModule
+    RouterModule
   ],
-  providers: [
-    AuthGuard,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass:AuthInterceptor,
-      multi:true
-    },
-    UserService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
