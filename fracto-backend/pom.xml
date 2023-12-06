@@ -65,7 +65,8 @@
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-oauth2-resource-server</artifactId>
 			<version>6.2.0</version>
-		</dependency>	</dependencies>
+		</dependency>
+	</dependencies>
 
 	<build>
 		<plugins>
