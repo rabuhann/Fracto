@@ -1,20 +1,20 @@
 package com.example.fractobackend.controller;
 
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
-import com.example.fractobackend.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.fractobackend.dto.LoginDto;
 import com.example.fractobackend.dto.SignupDto;
@@ -27,7 +27,8 @@ import com.example.fractobackend.repository.UserRepository;
 @RestController
 @RequestMapping("/api/v1/")
 public class AuthController {
-
+	//@Autowired
+	//private UserService userService;
 	@Autowired
     private UserRepository userRepository;
 	
@@ -37,32 +38,18 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 	@Autowired
     private RoleRepository roleRepository;
-
-
+		
+	
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> authenticateUser(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        // Get the authenticated user details
-        org.springframework.security.core.userdetails.User userDetails =
-                (org.springframework.security.core.userdetails.User) authentication.getPrincipal();
-
-        // Convert the UserDetails to your User entity if needed
-        User authenticatedUser = userRepository.findByEmail(userDetails.getUsername());
-
-
-        // Create a response map with user details and token
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "User login successfully!...");
-        response.put("user", authenticatedUser);
-
-        return ResponseEntity.ok(response);
+        
+        return new ResponseEntity<>("User login successfully!...", HttpStatus.OK);
     }
-
-
+    
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupDto signUpDto){
 
@@ -85,17 +72,6 @@ public class AuthController {
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
 
     }
-
-    @GetMapping({"/forAdmin"})
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String forAdmin(){
-        return "This URL is only accessible to the admin";
-    }
-
-    @GetMapping({"/forUser"})
-    @PreAuthorize("hasRole('ROLE_USER')")
-    public String forUser(){
-        return "This URL is only accessible to the user";
-    }
+	
 	
 }
