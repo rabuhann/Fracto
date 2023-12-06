@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserAuthService } from './user-auth.service';
-import { catchError } from 'rxjs/operators';
-import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +14,8 @@ export class UserService {
   ) {}
 
   public login(loginData: any) {
-    return this.httpclient.post(this.PATH_OF_API + '/login', loginData).pipe(
-      tap(response => console.log('Login successful. Response:', response)),
-      catchError(error => {
-        console.error('Login error:', error);
-        throw error;
-      })
-    );
+    return this.httpclient.post(this.PATH_OF_API + '/login', loginData, {
+    });
   }
 
   public roleMatch(allowedRoles: string[]): boolean {
