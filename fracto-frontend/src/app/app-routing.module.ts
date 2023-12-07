@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent },
   { path: 'user', component: UserComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'forbidden', component: ForbiddenComponent }
+  { path: 'forbidden', component: ForbiddenComponent },
 ];
 
 @NgModule({
