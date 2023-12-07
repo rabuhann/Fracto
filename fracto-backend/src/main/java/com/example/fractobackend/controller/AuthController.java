@@ -64,11 +64,11 @@ public class AuthController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@RequestBody SignupDto signUpDto){
+    public ResponseEntity<Map<String, Object>> registerUser(@RequestBody SignupDto signUpDto) {
 
         // add check for email exists in DB
         if(userRepository.existsByEmail(signUpDto.getEmail())){
-            return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(Collections.singletonMap("error", "Email is already taken!"), HttpStatus.BAD_REQUEST);
         }
 
         // create user object
@@ -82,8 +82,12 @@ public class AuthController {
         System.out.println(user.getRoles());
         userRepository.save(user);
 
-        return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
+        // Create a response map with user details and token
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "User registered successfully!...");
+        response.put("user", user);
 
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping({"/forAdmin"})
