@@ -14,6 +14,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { UserListComponent } from './user-list/user-list.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { CreateUserComponent } from './create-user/create-user.component';
     HeaderComponent,
     ForbiddenComponent,
     UserListComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    UpdateUserComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,

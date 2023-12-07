@@ -1,6 +1,7 @@
 package com.example.fractobackend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/")
 public class UserController {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private UserRepository userRepository;
@@ -55,7 +59,7 @@ public class UserController {
         user.setUserName((userDetails.getUserName()));
         user.setUserEmail(userDetails.getUserEmail());
         user.setRoles(userDetails.getRoles());
-        user.setPassword(userDetails.getPassword());
+        user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
 
         User updatedUser = userRepository.save(user);
         return ResponseEntity.ok(updatedUser);
@@ -65,9 +69,13 @@ public class UserController {
     @DeleteMapping("/users/{id}")
     public ResponseEntity<Map<String, Boolean>> deleteUser(@PathVariable Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User doesn't exists with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("User doesn't exist with id: " + id));
+
+        // Remove associations with roles
+        user.setRoles(null); // or user.getRoles().clear();
 
         userRepository.delete(user);
+
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
