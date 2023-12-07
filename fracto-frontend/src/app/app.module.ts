@@ -12,6 +12,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { UserListComponent } from './user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { RouterModule } from '@angular/router';
     UserComponent,
     LoginComponent,
     HeaderComponent,
-    ForbiddenComponent
+    ForbiddenComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
