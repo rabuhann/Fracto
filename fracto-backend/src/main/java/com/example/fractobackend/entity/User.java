@@ -1,5 +1,6 @@
 package com.example.fractobackend.entity;
 
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -12,13 +13,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"id"}),
-        @UniqueConstraint(columnNames = {"email"})
+		@UniqueConstraint(columnNames = {"id"}),
+		@UniqueConstraint(columnNames = {"email"})
 })
 public class User {
 	@Id
@@ -32,14 +34,19 @@ public class User {
 	@Column(name="password")
 	private String password;
 
+	//	@OneToMany(targetEntity = Appoinment.class,cascade = CascadeType.ALL)
+//	@JoinColumn(name="user_id",referencedColumnName = "id")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="userAppo", cascade = CascadeType.ALL)
+	private List<Appoinment> appointments;
+
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<Role> roles;
+	@JoinTable(name = "user_roles",
+			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	private Set<Role> roles;
 
 	public User() {
-		
+
 	}
 
 	public Long getUserId() {
@@ -67,13 +74,27 @@ public class User {
 		this.password = password;
 	}
 	public Set<Role> getRoles() {
-        return roles;
-    }
+		return roles;
+	}
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-	
-	
-	
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public List<Appoinment> getAppointments() {
+		return appointments;
+	}
+
+	public void setAppointments(List<Appoinment> appointments) {
+		this.appointments = appointments;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
+				+ ", appointments=" + appointments + ", roles=" + roles + "]";
+	}
+
+
+
 }
