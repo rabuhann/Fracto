@@ -28,14 +28,14 @@ import com.example.fractobackend.repository.UserRepository;
 @RequestMapping("/api/v1/")
 public class AuthController {
 
-    @Autowired
+	@Autowired
     private UserRepository userRepository;
-
-    @Autowired
+	
+	@Autowired
     private AuthenticationManager authenticationManager;
-    @Autowired
+	@Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
+	@Autowired
     private RoleRepository roleRepository;
 
 
@@ -97,5 +97,5 @@ public class AuthController {
     public String forUser(){
         return "This URL is only accessible to the user";
     }
-
+	
 }
