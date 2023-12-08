@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { User } from '../user';
+import { User, Role } from '../user';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../_services/user.service';
 
@@ -12,14 +12,20 @@ export class UserDetailsComponent {
 
   id!: number;
   user!: User
-  constructor(private route: ActivatedRoute, private employeService: UserService) { }
+  role!: Role
+  constructor(private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
 
     this.user = new User();
-    this.employeService.getUserById(this.id).subscribe( data => {
+    this.userService.getUserById(this.id).subscribe( data => {
       this.user = data;
+    });
+
+    this.role = new Role();
+    this.userService.getRole(this.id).subscribe( data => {
+      this.role = data;
     });
   }
 
