@@ -26,9 +26,10 @@ public class AppointmentController {
 	private AppoinmentServiceImpl appoinmentService;
 	@Autowired
 	private UserRepository userRepo;
+	
 	@PostMapping("/make-appoinment")
 	public String make_appoinment(@RequestBody AppoinmentRequestDto appo, @RequestParam(name = "u_id") Long id) {
-		
+		//post api url : http://localhost:8080/api/v1/make-appoinment?u_id=user_id
 		User user = userRepo.getById(id);
 		
 		appo.getAppoinment().setUserAppo(user);
@@ -37,8 +38,21 @@ public class AppointmentController {
 		
 		all_appo.add(appo.getAppoinment());
 		user.setAppointments(all_appo);
-		userRepo.save(user);
-		return "Appoinment Confirmed";
+		return appoinmentService.makeAppoinment(user);
+		//userRepo.save(user);
+
+		
+		//Post json body example
+//		{
+//		    "appoinment":{
+//		        "appoinment_date": "2023-07-12",
+//		        "time": "01:30:00",
+//		        "city": "Texas",
+//		        "doc_id": "2"
+//		    }
+//		    
+//		}
+//		
 		
 	}
 }
