@@ -9,7 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
-public class Appoinment {
+public class Appointment {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

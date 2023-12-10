@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.fractobackend.dto.AppoinmentRequestDto;
-import com.example.fractobackend.entity.Appoinment;
+import com.example.fractobackend.dto.AppointmentRequestDto;
+import com.example.fractobackend.entity.Appointment;
 import com.example.fractobackend.entity.User;
 import com.example.fractobackend.repository.UserRepository;
-import com.example.fractobackend.service.AppoinmentServiceImpl;
+import com.example.fractobackend.service.AppointmentServiceImpl;
 
 @CrossOrigin
 @RestController
@@ -23,22 +23,22 @@ import com.example.fractobackend.service.AppoinmentServiceImpl;
 public class AppointmentController {
 	
 	@Autowired
-	private AppoinmentServiceImpl appoinmentService;
+	private AppointmentServiceImpl appointmentService;
 	@Autowired
 	private UserRepository userRepo;
-	@PostMapping("/make-appoinment")
-	public String make_appoinment(@RequestBody AppoinmentRequestDto appo, @RequestParam(name = "u_id") Long id) {
+	@PostMapping("/make-appointment")
+	public String make_appointment(@RequestBody AppointmentRequestDto appo, @RequestParam(name = "u_id") Long id) {
 		
 		User user = userRepo.getById(id);
 		
-		appo.getAppoinment().setUserAppo(user);
+		appo.getAppointment().setUserAppo(user);
 		
-		List<Appoinment> all_appo= new ArrayList<>();
+		List<Appointment> all_appo= new ArrayList<>();
 		
-		all_appo.add(appo.getAppoinment());
+		all_appo.add(appo.getAppointment());
 		user.setAppointments(all_appo);
 		userRepo.save(user);
-		return "Appoinment Confirmed";
+		return "Appointment Confirmed";
 		
 	}
 }

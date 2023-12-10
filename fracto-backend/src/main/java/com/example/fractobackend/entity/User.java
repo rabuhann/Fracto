@@ -34,10 +34,10 @@ public class User {
 	@Column(name="password")
 	private String password;
 
-	//	@OneToMany(targetEntity = Appoinment.class,cascade = CascadeType.ALL)
+	//	@OneToMany(targetEntity = Appointment.class,cascade = CascadeType.ALL)
 //	@JoinColumn(name="user_id",referencedColumnName = "id")
 	@OneToMany(fetch = FetchType.LAZY,mappedBy="userAppo", cascade = CascadeType.ALL)
-	private List<Appoinment> appointments;
+	private List<Appointment> appointments;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "user_roles",
@@ -81,11 +81,11 @@ public class User {
 		this.roles = roles;
 	}
 
-	public List<Appoinment> getAppointments() {
+	public List<Appointment> getAppointments() {
 		return appointments;
 	}
 
-	public void setAppointments(List<Appoinment> appointments) {
+	public void setAppointments(List<Appointment> appointments) {
 		this.appointments = appointments;
 	}
 
