@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserAuthService } from './user-auth.service';
-import { User } from '../user';
-import { Observable } from 'rxjs'
+import { User, Role } from '../user';
+import { Observable, of } from 'rxjs';  // Import of from 'rxjs'
+import { catchError, map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -61,6 +62,14 @@ export class UserService {
 
   deleteUser(id: number): Observable<Object> {
     return this.httpclient.delete(this.baseURL + '/' + id);
+  }
+
+  getRole(userId: number): Observable<Role> {
+    return this.httpclient.get<User>(`${this.baseURL}/${userId}`).pipe(
+      map((user: User) => {
+        return user.roles[0];  // Return the name of the first role
+      })
+    );
   }
 
 }
