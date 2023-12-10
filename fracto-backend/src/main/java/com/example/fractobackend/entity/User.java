@@ -36,7 +36,7 @@ public class User {
 
 	//	@OneToMany(targetEntity = Appointment.class,cascade = CascadeType.ALL)
 //	@JoinColumn(name="user_id",referencedColumnName = "id")
-	@OneToMany(fetch = FetchType.LAZY,mappedBy="userAppo", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="user", cascade = CascadeType.ALL)
 	private List<Appointment> appointments;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

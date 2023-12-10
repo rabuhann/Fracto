@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-
 public class DoctorServiceImpl implements DoctorService {
 
     @Autowired
@@ -38,5 +37,15 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public Optional<Doctor> get(Long doctorId) {
         return doctorRepository.findById(doctorId);
+    }
+
+    @Override
+    public List<String> getAllSpecializations() {
+        return doctorRepository.findAllSpecializations();
+    }
+
+    @Override
+    public List<Doctor> getDoctorsBySpecialization(String specialization) {
+        return doctorRepository.findBySpecialization(specialization);
     }
 }

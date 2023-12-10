@@ -1,35 +1,41 @@
 package com.example.fractobackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "doctor")
 public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long doctorID;
+    @Column(name = "doctor_id")
+    private Long doctorId;
 
-    @Column(name = "DoctorName")
+    @Column(name = "doctor_name")
     private String doctorName;
 
-    @Column(name = "Specialization")
+    @Column(name = "specialization")
     private String specialization;
 
-    @Column(name = "City")
-    private String city;
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 
-    @Column(name = "Ratings")
+    @Column(name = "ratings")
     private int ratings;
 
-    public Doctor() {
+    @OneToMany(mappedBy = "doctor")
+    @JsonIgnore
+    private List<TimeSlot> timeSlots;
+
+    public Long getDoctorId() {
+        return doctorId;
     }
 
-    public Doctor(Long doctorID, String doctorName, String specialization, String city, int ratings) {
-        this.doctorID = doctorID;
-        this.doctorName = doctorName;
-        this.specialization = specialization;
-        this.city = city;
-        this.ratings = ratings;
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
     }
 
     public String getDoctorName() {
@@ -48,11 +54,11 @@ public class Doctor {
         this.specialization = specialization;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
@@ -62,5 +68,13 @@ public class Doctor {
 
     public void setRatings(int ratings) {
         this.ratings = ratings;
+    }
+
+    public List<TimeSlot> getTimeSlots() {
+        return timeSlots;
+    }
+
+    public void setTimeSlots(List<TimeSlot> timeSlots) {
+        this.timeSlots = timeSlots;
     }
 }

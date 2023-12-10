@@ -9,7 +9,9 @@ import java.util.Optional;
 public interface DoctorService {
     Doctor saveDoctor(Doctor product);
     List<Doctor> fetchDoctorList();
-    public Doctor update(Doctor product);
-    public void delete(Doctor product);
-    public Optional<Doctor> get(Long productId);
+    Doctor update(Doctor product);
+    void delete(Doctor product);
+    Optional<Doctor> get(Long productId);
+    List<String> getAllSpecializations();
+    List<Doctor> getDoctorsBySpecialization(String specialization);
 }
