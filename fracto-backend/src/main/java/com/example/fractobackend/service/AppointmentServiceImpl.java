@@ -28,12 +28,12 @@ public class AppointmentServiceImpl {
 	//find appointment by appointment id
 	public Appointment findById(Long id) {
 		return appointmentRepository.findById(id)
-       .orElseThrow(() -> new ResourceNotFoundException("User doesn't exist with id: " + id));
+       .orElseThrow(() -> new ResourceNotFoundException("Appointment doesn't exist with id: " + id));
 	}
 	
 	//Cancel appointment
 	public String cancel(Appointment appointment) {
-		System.out.println(appointment.getA_id());
+		System.out.println(appointment.getAppointmentId());
 		appointment.setStatus("Cancelled"); //setting status as "Cancelled"
 		appointmentRepository.save(appointment);
 		

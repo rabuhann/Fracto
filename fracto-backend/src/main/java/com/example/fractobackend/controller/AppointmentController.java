@@ -8,7 +8,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,7 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.fractobackend.dto.AppointmentRequestDto;
 import com.example.fractobackend.entity.Appointment;
+import com.example.fractobackend.entity.Doctor;
+import com.example.fractobackend.entity.TimeSlot;
 import com.example.fractobackend.entity.User;
+import com.example.fractobackend.exception.ResourceNotFoundException;
+import com.example.fractobackend.repository.DoctorRepository;
+import com.example.fractobackend.repository.TimeSlotRepository;
 import com.example.fractobackend.repository.UserRepository;
 import com.example.fractobackend.service.AppointmentServiceImpl;
 
@@ -32,33 +36,44 @@ public class AppointmentController {
 	private AppointmentServiceImpl appointmentService;
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private DoctorRepository doctorRepository;
+	@Autowired
+	private TimeSlotRepository timeSlotRepository;
+	
 	@PostMapping("/make-appointment")
 	public String make_appoinment(@RequestBody AppointmentRequestDto appo, @RequestParam(name = "u_id") Long id) {
 		//post api url : http://localhost:8080/api/v1/make-appointment?u_id=user_id
 		User user = userRepo.getById(id);
 		
-		appo.getAppointment().setUserAppo(user);
-		appo.getAppointment().setStatus("Active"); //Initially "Active" status
+		Appointment appointment = new Appointment();
+		appointment.setUserAppo(user);
 		
+		Doctor doctor = doctorRepository.findById(appo.getDoctor_id())
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor doesn't exists with id: " + id));
+		
+		TimeSlot timeSlot = timeSlotRepository.findById(appo.getTimeSlot_id())
+                .orElseThrow(() -> new ResourceNotFoundException("Time slot doesn't exists with id: " + appo.getTimeSlot_id()));
+		
+		appointment.setDoctor(doctor);
+		appointment.setTimeSlot(timeSlot);
+		appointment.setStatus("Active");
+
+				
 		List<Appointment> all_appo= new ArrayList<>();
 		
-		all_appo.add(appo.getAppointment());
+		all_appo.add(appointment);
 		user.setAppointments(all_appo);
 		return appointmentService.makeAppoinment(user);
-		//userRepo.save(user);
-
 		
 		//Post json body example
 //		{
-//		    "appointment":{
-//		        "appointment_date": "2023-07-12",
-//		        "time": "01:30:00",
-//		        "city": "Texas",
-//		        "doc_id": "2"
-//		    }
+//		    "doctor_id":"1",
+//        	"timeSlot_id": "1"
 //		    
 //		}
 //		
+		
 	}
 	
 
