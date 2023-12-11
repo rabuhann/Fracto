@@ -31,7 +31,7 @@ public class AppointmentController {
 		
 		User user = userRepo.getById(id);
 		
-		appo.getAppointment().setUserAppo(user);
+		appo.getAppointment().setUser(user);
 		
 		List<Appointment> all_appo= new ArrayList<>();
 		
