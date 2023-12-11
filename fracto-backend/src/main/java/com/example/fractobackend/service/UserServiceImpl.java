@@ -30,9 +30,9 @@ public class UserServiceImpl {
         roleDao.save(userRole);
 
         User adminUser = new User();
-        adminUser.setUserName("admin123");
+        adminUser.setUsername("admin123");
         adminUser.setPassword("admin@pass");
-        adminUser.setUserEmail("admin@mail.com");
+        adminUser.setEmail("admin@mail.com");
         Set<Role> adminRoles = new HashSet<>();
         adminRoles.add(adminRole);
         adminUser.setRoles(adminRoles);

@@ -1,7 +1,7 @@
 export class User {
-    userId!: number;
-    userName!: string;
-    userEmail!: string;
+    id!: number;
+    username!: string;
+    email!: string;
     password!: string;
     roles: Role[] = []; // Assuming Role is another class representing the role structure
 }
