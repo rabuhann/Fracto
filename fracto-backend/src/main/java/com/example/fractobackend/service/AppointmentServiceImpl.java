@@ -1,9 +1,14 @@
 package com.example.fractobackend.service;
 
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.fractobackend.entity.Appointment;
+import com.example.fractobackend.entity.User;
+import com.example.fractobackend.exception.ResourceNotFoundException;
 import com.example.fractobackend.repository.AppointmentRepository;
 import com.example.fractobackend.repository.UserRepository;
 
@@ -14,7 +19,25 @@ public class AppointmentServiceImpl {
 	@Autowired
 	private UserRepository userRepo;
 	
-//	public User makeAppointment(AppointmentRequestDto appo) {
-//		return userRepo.save(appo.getUserAppo());
-//	}
+	//Make appointment
+	public String makeAppoinment(User appo) {
+		
+		 userRepo.save(appo);
+		 return "Appoinment Confirmed";
+	}
+	//find appointment by appointment id
+	public Appointment findById(Long id) {
+		return appointmentRepository.findById(id)
+       .orElseThrow(() -> new ResourceNotFoundException("User doesn't exist with id: " + id));
+	}
+	
+	//Cancel appointment
+	public String cancel(Appointment appointment) {
+		System.out.println(appointment.getA_id());
+		appointment.setStatus("Cancelled"); //setting status as "Cancelled"
+		appointmentRepository.save(appointment);
+		
+		return "Canceled";
+	}
+
 }

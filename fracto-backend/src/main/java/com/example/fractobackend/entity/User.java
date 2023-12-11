@@ -34,7 +34,7 @@ public class User {
 	@Column(name="password")
 	private String password;
 
-	@OneToMany(fetch = FetchType.LAZY,mappedBy="user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="userAppo", cascade = CascadeType.ALL)
 	private List<Appointment> appointments;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -96,3 +96,4 @@ public class User {
 
 
 }
+
