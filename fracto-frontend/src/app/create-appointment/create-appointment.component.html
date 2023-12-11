@@ -1,61 +1,57 @@
-<div class="mt-1 mb-2 p-3 bg-success text-white rounded text-center">
-    <h1>ElementRef & Renderer2 </h1>
-    <h3>Angular Logic Building </h3>
-  
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 text-end">
-        <button class="btn btn-secondary" (click)="changeFontColor()">Change Font Color </button>
-        <button class="btn btn-success" (click)="changeColor()">Change Color</button>
-      </div>
+<div class="mt-1 mb-2 p-3 bg-primary text-white text-center">
+  <h1>Book an Appointment </h1>
+</div>
+
+<div class="container">
+  <div class="row mt-3">
+    <div class="col-4">
+      <label for="myclient" class="text-primary">Select Specialization</label>
+      <select class="form-control" (change)="getDoctorsBySpecialization()" [(ngModel)]="selectedSpecialization">
+        <option value="">Select </option>
+        <option *ngFor="let item of specializations" [value]="item">{{item}}</option>
+      </select>
     </div>
-    <div class="row mt-3">
-      <div class="col-3">
-        <label for="" #myclient>Select Specialization</label>
-        <select class="form-control" [(ngModel)]="specializations">
-          <option value="">Select </option>
-          <option *ngFor="let item of specializations" [value]="item">{{item}}</option>
-        </select>
-      </div>
-      <!-- <div class="col-3">
-        <label for="">Select Doctor</label>
-        <select class="form-control" id="dpdlSite" (change)="getDoctorsBySpecialization()" [(ngModel)]="doctorId">
-          <option value="">Select </option>
-          <option *ngFor="let item of doctorId" [value]="item.doctorId">{{item.doctorId}}</option>
-        </select>
-      </div>
-      <div class="col-3">
-        <label for="">Select Building</label>
-        <select class="form-control" (change)="getTimeslotByDoctor()" [(ngModel)]="doctors">
-          <option value="">Select </option>
-          <option *ngFor="let item of doctors" [value]="item.doctors">{{item.doctors}}</option>
-        </select>
-      </div>
-    </div> -->
-    <div class="row   mt-4">
-      <div class="col-6 text-end">
-        <button class="btn btn-secondary">Refresh</button>
-      </div>
-      <div class="col-6">
-        <button class="btn btn-success">Save</button>
-      </div>
+
+    <div class="col-4">
+      <label for="myclient" class="text-primary">Select Doctor</label>
+      <select class="form-control" (change)="getTimeslotByDoctor()" [(ngModel)]="selectedDoctor">
+        <option value="">Select </option>
+        <option *ngFor="let item of doctors" [ngValue]="item">{{ item.doctorName }}</option>
+      </select>      
+    </div>
+
+    <div class="col-4">
+      <label for="myclient" class="text-primary">Select TimeSlot</label>
+      <select class="form-control" [(ngModel)]="selectedTimeslot">
+        <option value="">Select </option>
+        <option *ngFor="let item of timeslots" [value]="item">{{item.availableDateTime}}</option>
+      </select>
     </div>
   </div>
-  
-  <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="btn-close" (click)="CloseModel()" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-  
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-        </div>
+ 
+  <div class="row mt-4">
+    <div class="col-6 text-end">
+      <button class="btn btn-info" (click)="refreshData()">Refresh</button>
+    </div>
+    <div class="col-6">
+      <button class="btn btn-primary" (click)="saveAppointment()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="btn-close" (click)="CloseModel()" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>
