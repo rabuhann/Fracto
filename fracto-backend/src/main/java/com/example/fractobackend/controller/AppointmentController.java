@@ -1,10 +1,15 @@
 package com.example.fractobackend.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.fractobackend.dto.AppoinmentRequestDto;
 import com.example.fractobackend.entity.Appoinment;
 import com.example.fractobackend.entity.User;
+import com.example.fractobackend.exception.ResourceNotFoundException;
 import com.example.fractobackend.repository.UserRepository;
 import com.example.fractobackend.service.AppoinmentServiceImpl;
 
@@ -53,6 +59,19 @@ public class AppointmentController {
 //		    
 //		}
 //		
-		
 	}
+	
+
+    @DeleteMapping("/appoinment/{id}")
+    public ResponseEntity<Map<String, Boolean>> cancel_appoinment(@PathVariable Long id) {
+        Appoinment appoinment = appoinmentService.findById(id);
+        System.out.println(appoinment.getCity());
+
+        String msg = appoinmentService.cancel(appoinment);
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put(msg, Boolean.TRUE);
+        
+        return ResponseEntity.ok(response);
+    }
 }
