@@ -73,8 +73,8 @@ public class AuthController {
 
         // create user object
         User user = new User();
-        user.setUserName(signUpDto.getUserName());
-        user.setUserEmail(signUpDto.getEmail());
+        user.setUsername(signUpDto.getUserName());
+        user.setEmail(signUpDto.getEmail());
         user.setPassword(passwordEncoder.encode(signUpDto.getPassword()));
 
         Role roles = roleRepository.findByName("ROLE_USER").get();

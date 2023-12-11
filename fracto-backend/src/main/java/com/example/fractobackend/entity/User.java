@@ -47,36 +47,36 @@ public class User {
 
 	}
 
-	public Long getUserId() {
+	public Long getId() {
 		return id;
 	}
-	public void setUserId(Long userId) {
-		this.id = userId;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public String getUserName() {
+
+	public String getUsername() {
 		return username;
 	}
-	public void setUserName(String username) {
+
+	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getUserEmail() {
+
+	public String getEmail() {
 		return email;
 	}
-	public void setUserEmail(String userEmail) {
-		this.email = userEmail;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	public Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(Set<Role> roles) {
-		this.roles = roles;
 	}
 
 	public List<Appointment> getAppointments() {
@@ -87,12 +87,23 @@ public class User {
 		this.appointments = appointments;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password
-				+ ", appointments=" + appointments + ", roles=" + roles + "]";
+	public Set<Role> getRoles() {
+		return roles;
 	}
 
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 
-
+	@Override
+	public String toString() {
+		return "User{" +
+				"id=" + id +
+				", username='" + username + '\'' +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", appointments=" + appointments +
+				", roles=" + roles +
+				'}';
+	}
 }

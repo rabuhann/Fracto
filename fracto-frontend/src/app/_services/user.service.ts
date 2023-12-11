@@ -64,8 +64,8 @@ export class UserService {
     return this.httpclient.delete(this.baseURL + '/' + id);
   }
 
-  getRole(userId: number): Observable<Role> {
-    return this.httpclient.get<User>(`${this.baseURL}/${userId}`).pipe(
+  getRole(id: number): Observable<Role> {
+    return this.httpclient.get<User>(`${this.baseURL}/${id}`).pipe(
       map((user: User) => {
         return user.roles[0];  // Return the name of the first role
       })

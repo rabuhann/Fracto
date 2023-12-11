@@ -12,29 +12,35 @@ public class SignupDto {
     public SignupDto() {
     }
 
-    public void setUserName(String name) {
-        this.userName = name;
-    }
     public String getUserName() {
         return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
+
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Collection<? extends GrantedAuthority> getUserType() {
+        return userType;
+    }
+
     public void setUserType(Collection<? extends GrantedAuthority> userType) {
         this.userType = userType;
-    }
-    public Collection<? extends GrantedAuthority> getUserType() {
-    	return userType;
     }
 }
