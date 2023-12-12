@@ -23,4 +23,9 @@ public class TimeSlotController {
     public List<TimeSlot> getTimeSlotsByDoctor(@PathVariable Long doctorId) {
         return timeSlotServiceImpl.getTimeSlotsByDoctor(doctorId);
     }
+
+    @GetMapping("/time-slots/date/")
+    public List<String> findTimeSlotDateByDoctorAndStatus(@RequestParam  Long doctorId, @RequestParam  String status) {
+        return timeSlotServiceImpl.getTimeSlotDateByDoctorAndStatus(doctorId, status);
+    }
 }

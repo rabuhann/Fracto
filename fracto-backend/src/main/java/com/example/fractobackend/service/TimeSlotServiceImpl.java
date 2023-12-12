@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class TimeSlotServiceImpl {
+public class TimeSlotServiceImpl implements TimeSlotService {
 
     private final TimeSlotRepository timeSlotRepository;
 
@@ -17,7 +17,12 @@ public class TimeSlotServiceImpl {
         this.timeSlotRepository = timeSlotRepository;
     }
 
+    @Override
     public List<TimeSlot> getTimeSlotsByDoctor(Long doctorId) {
         return timeSlotRepository.findByDoctorDoctorId(doctorId);
+    }
+
+    public List<String> getTimeSlotDateByDoctorAndStatus(Long doctorId, String status) {
+        return timeSlotRepository.findTimeSlotDateByDoctorAndStatus(doctorId, status);
     }
 }
