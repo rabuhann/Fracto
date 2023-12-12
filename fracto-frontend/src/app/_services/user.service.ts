@@ -44,6 +44,10 @@ export class UserService {
     return false;  // No match found
   }
 
+  getRoles(): any {
+    return this.userAuthService.getRoles();
+  }
+
   getUsersList(): Observable<User[]> {
     return this.httpclient.get<User[]>(this.baseURL);
   }
