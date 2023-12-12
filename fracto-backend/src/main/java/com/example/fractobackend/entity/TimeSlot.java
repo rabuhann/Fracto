@@ -14,8 +14,11 @@ public class TimeSlot {
     @JoinColumn(name = "doctor_id")
     private Doctor doctor;
 
-    @Column(name = "available_date_time")
-    private String availableDateTime;
+    @Column(name = "available_date")
+    private String availableDate;
+    
+    @Column(name = "available_time")
+    private String availableTime;
 
     @Column(name = "status")
     private String status;
@@ -36,15 +39,24 @@ public class TimeSlot {
         this.doctor = doctor;
     }
 
-    public String getAvailableDateTime() {
-        return availableDateTime;
-    }
 
-    public void setAvailableDateTime(String availableDateTime) {
-        this.availableDateTime = availableDateTime;
-    }
+    public String getAvailableDate() {
+		return availableDate;
+	}
 
-    public String getStatus() {
+	public void setAvailableDate(String availableDate) {
+		this.availableDate = availableDate;
+	}
+
+	public String getAvailableTime() {
+		return availableTime;
+	}
+
+	public void setAvailableTime(String availableTime) {
+		this.availableTime = availableTime;
+	}
+
+	public String getStatus() {
         return status;
     }
 

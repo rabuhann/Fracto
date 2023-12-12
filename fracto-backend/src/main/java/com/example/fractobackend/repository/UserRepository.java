@@ -1,11 +1,13 @@
 package com.example.fractobackend.repository;
 
-import java.util.Optional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.example.fractobackend.entity.User;
-import org.springframework.stereotype.Repository;
+
+import jakarta.transaction.Transactional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Long>{
@@ -16,5 +18,6 @@ public interface UserRepository extends JpaRepository<User,Long>{
 //	Boolean existsByUsername(String userName);
 	User findByEmail(String email);
     Boolean existsByEmail(String userEmail);
+    
 
 }

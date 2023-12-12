@@ -1,5 +1,10 @@
 package com.example.fractobackend.entity;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -11,24 +16,23 @@ public class Appointment {
 	@Column(name = "appointment_id")
 	private Long appointmentId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id")
-    private User user;
-
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "doctor_id")
 	private Doctor doctor;
-
-	@ManyToOne(cascade = CascadeType.ALL)
+    
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User userAppo;
+    
+    @ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "timeslot_id")
 	private TimeSlot timeSlot;
+    
+    private String status;
 
-	@ManyToOne
-	@JoinColumn(name = "city_id")
-	private City city;
-
-	@Column(name = "status")
-	private String status;
+	public Appointment() {
+		
+	}
 
 	public Long getAppointmentId() {
 		return appointmentId;
@@ -36,14 +40,6 @@ public class Appointment {
 
 	public void setAppointmentId(Long appointmentId) {
 		this.appointmentId = appointmentId;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public Doctor getDoctor() {
@@ -54,20 +50,20 @@ public class Appointment {
 		this.doctor = doctor;
 	}
 
+	public User getUserAppo() {
+		return userAppo;
+	}
+
+	public void setUserAppo(User userAppo) {
+		this.userAppo = userAppo;
+	}
+
 	public TimeSlot getTimeSlot() {
 		return timeSlot;
 	}
 
 	public void setTimeSlot(TimeSlot timeSlot) {
 		this.timeSlot = timeSlot;
-	}
-
-	public City getCity() {
-		return city;
-	}
-
-	public void setCity(City city) {
-		this.city = city;
 	}
 
 	public String getStatus() {
@@ -77,4 +73,7 @@ public class Appointment {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+		
+
 }
