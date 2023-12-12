@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import com.example.fractobackend.repository.DoctorRepository;
 import com.example.fractobackend.repository.TimeSlotRepository;
 import com.example.fractobackend.repository.UserRepository;
 import com.example.fractobackend.service.AppointmentServiceImpl;
+import com.example.fractobackend.service.EmailSenderService;
 
 @CrossOrigin
 @RestController
@@ -40,6 +42,8 @@ public class AppointmentController {
 	private DoctorRepository doctorRepository;
 	@Autowired
 	private TimeSlotRepository timeSlotRepository;
+	@Autowired
+	private EmailSenderService emailService;
 	
 	@PostMapping("/make-appointment")
 	public String make_appoinment(@RequestBody AppointmentRequestDto appo, @RequestParam(name = "u_id") Long id) {
@@ -64,6 +68,10 @@ public class AppointmentController {
 		
 		all_appo.add(appointment);
 		user.setAppointments(all_appo);
+		//Sending confirmation
+		String confirmation = "Appoinment Successfully Scheduled at "+timeSlot.getAvailableTime()+" on "+timeSlot.getAvailableDate();
+		emailService.sendEmail(user.getEmail(),"Fracto Appoinment",confirmation);
+		
 		return appointmentService.makeAppoinment(user);
 		
 		//Post json body example
@@ -84,7 +92,9 @@ public class AppointmentController {
         String msg = appointmentService.cancel(appointment);
         Map<String, Boolean> response = new HashMap<>();
         response.put(msg, Boolean.TRUE);
-      
+        //Send cancellation message
+        String cancelMessage = "You have successfully cancelled your appointment";
+        emailService.sendEmail(appointment.getUserAppo().getEmail(), "Fracto Appointment Cancellation", cancelMessage);
         return ResponseEntity.ok(response);
     }
 
