@@ -7,6 +7,9 @@ import { HttpClient } from '@angular/common/http';
    styleUrls: ['./create-appointment.component.css']
 })
 export class CreateAppointmentComponent implements OnInit {
+saveAppointment() {
+throw new Error('Method not implemented.');
+}
 
   @ViewChild('myclient') client!: ElementRef | undefined;
 
@@ -36,18 +39,26 @@ export class CreateAppointmentComponent implements OnInit {
     }
   }
 
-  specializations: string = '';
+  cities: any[] = [];
+  selectedCity: any;
+
+  specializations: any[] = [];
   selectedSpecialization: string = '';
+
+  selectedRating: number = 0;
+  ratings: number[] = [];
 
   doctors: any[] = [];
   selectedDoctor: any;
 
-  selectedTimeslot!: any; // Adjust the type accordingly based on the structure of your timeslot object
-
-   timeslots: any[] = [];
+  selectedTimeslotDate!: any;
+  selectedTimeslotTime!: any;
+  
+  timeslots: any[] = [];
+  timeslotDates: string[] = [];
 
    ngOnInit() {
-      this.loadSpecializations();
+      this.loadCities();
    }
 
   ngAfterViewInit() {
@@ -55,47 +66,94 @@ export class CreateAppointmentComponent implements OnInit {
     }
   }
 
-  loadSpecializations() {
-    this.http.get('http://localhost:8080/api/v1/specializations').subscribe((result: any) => {
-      this.specializations = result;
+  loadCities() {
+    this.http.get('http://localhost:8080/api/v1/cities').subscribe((result: any) => {
+      this.cities = result;
     });
   }
 
-  getDoctorsBySpecialization() {
-    this.http.get<any[]>('http://localhost:8080/api/v1/specialization/' + this.selectedSpecialization)
+  getSpecializationsByCity() {
+    if (this.selectedCity) {
+      const selectedCityId = this.selectedCity.cityId;
+      this.http.get<string[]>('http://localhost:8080/api/v1/city-specializations/' + selectedCityId)
+        .subscribe((result: string[]) => {
+          this.specializations = result;
+        });
+    }
+  }
+
+  getRatingsBySpecialization() {
+    if (this.selectedSpecialization && this.selectedCity) {  
+      this.http.get<number[]>('http://localhost:8080/api/v1/ratings?specialization=' + this.selectedSpecialization + '&cityId=' + this.selectedCity.cityId)
+        .subscribe((result: number[]) => {
+          this.ratings = result;
+          // Assuming the response is an array of numbers
+          console.log('Ratings:', result);
+  
+          // You can further handle the ratings array as needed
+        });
+    }
+  }
+
+  // http://localhost:8080/api/v1/doctors?specialization=Family-Medicine&cityId=1&ratings=5
+
+  getDoctorsBySpecializationAndCityAndRating() {
+    this.http.get<any[]>('http://localhost:8080/api/v1/doctor-names?specialization=' + this.selectedSpecialization + '&cityId=' + this.selectedCity.cityId + '&ratings=' + this.selectedRating)
       .subscribe((result: any[]) => {
+        console.log('Doctors:', result);
+  
         this.doctors = result;
-        console.log('Doctors:', this.doctors);
   
         // Check if there is at least one doctor
         if (this.doctors.length > 0) {
           // Set the selectedDoctor to the first doctor in the list
-          this.selectedDoctor = this.doctors[0];
-          console.log('Selected Doctor:', this.selectedDoctor);
         } else {
           // Clear selectedDoctor if there are no doctors
           this.selectedDoctor = undefined;
         }
       });
-  }   
+  }
 
-  getTimeslotByDoctor() {
+  // http://localhost:8080/api/v1/time-slots/date/?doctorId=1&status=Available
+
+  getTimeslotDateByDoctor() {
+    console.log('getTimeslotDateByDoctor Doctor:', this.selectedDoctor);
     if (this.selectedDoctor) {
       const selectedDoctorId = this.selectedDoctor.doctorId;
-      this.http.get<any[]>('http://localhost:8080/api/v1/time-slots/doctor/' + selectedDoctorId)
-        .subscribe((result: any[]) => {
-          this.timeslots = result; // Assuming you have a timeslots array
+      console.log('getTimeslotDateByDoctor id:', selectedDoctorId);
+      
+      this.http.get<string[]>('http://localhost:8080/api/v1/time-slots/date/?doctorId=' + selectedDoctorId + '&status=Available')
+      .subscribe((result: string[]) => {
+          this.timeslotDates = result; // Assuming you have a timeslots array
         });
+    } else {
+      // Handle the case where selectedDoctor is not defined
+      console.error('Selected doctor is undefined. Cannot fetch time slots.');
+      // You might want to clear the timeslots array or handle it appropriately.
     }
   }  
 
- saveAppointment() {
-    if (this.selectedTimeslot) {
-       // Here you can use this.selectedTimeslot.availableDateTime or any other properties
-       console.log('Selected Timeslot:', this.selectedTimeslot);
-    }
-    // Implement your save logic here
- }
+  // getTimeslotByDoctor() {
+  //   if (this.selectedDoctor) {
+  //     const selectedDoctorId = this.selectedDoctor.doctorId;
+  //     this.http.get<any[]>('http://localhost:8080/api/v1/time-slots/doctor/' + selectedDoctorId)
+  //       .subscribe((result: any[]) => {
+  //         this.timeslots = result; // Assuming you have a timeslots array
+  //       });
+  //   } else {
+  //     // Handle the case where selectedDoctor is not defined
+  //     console.error('Selected doctor is undefined. Cannot fetch time slots.');
+  //     // You might want to clear the timeslots array or handle it appropriately.
+  //   }
+  // }  
+
+//  saveAppointment() {
+//     if (this.selectedTimeslot) {
+//        // Here you can use this.selectedTimeslot.availableDateTime or any other properties
+//        console.log('Selected Timeslot:', this.selectedTimeslot);
+//     }
+//     // Implement your save logic here
+//  }
 
  refreshData() {
     // Implement your refresh logic here

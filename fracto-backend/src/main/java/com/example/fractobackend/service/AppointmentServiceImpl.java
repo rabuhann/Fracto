@@ -13,25 +13,28 @@ import com.example.fractobackend.repository.AppointmentRepository;
 import com.example.fractobackend.repository.UserRepository;
 
 @Service
-public class AppointmentServiceImpl {
+public class AppointmentServiceImpl implements AppointmentService {
 	@Autowired
 	private AppointmentRepository appointmentRepository;
 	@Autowired
 	private UserRepository userRepo;
 	
 	//Make appointment
+	@Override
 	public String makeAppoinment(User appo) {
 		
 		 userRepo.save(appo);
 		 return "Appoinment Confirmed";
 	}
 	//find appointment by appointment id
+	@Override
 	public Appointment findById(Long id) {
 		return appointmentRepository.findById(id)
        .orElseThrow(() -> new ResourceNotFoundException("Appointment doesn't exist with id: " + id));
 	}
 	
 	//Cancel appointment
+	@Override
 	public String cancel(Appointment appointment) {
 		System.out.println(appointment.getAppointmentId());
 		appointment.setStatus("Cancelled"); //setting status as "Cancelled"

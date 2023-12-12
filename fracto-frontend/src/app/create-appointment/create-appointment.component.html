@@ -1,35 +1,61 @@
 <div class="mt-1 mb-2 p-3 bg-primary text-white text-center">
-  <h1>Book an Appointment </h1>
+  <h1>Book an Appointment</h1>
 </div>
 
 <div class="container">
-  <div class="row mt-3">
+  <div class="row">
+
+    <div class="col-4">
+      <label for="myclient" class="text-primary">Select City</label>
+      <select class="form-control" (change)="getSpecializationsByCity()" [(ngModel)]="selectedCity">
+        <option value="">Select</option>
+        <option *ngFor="let item of cities" [ngValue]="item">{{ item.cityName }}</option>
+      </select>
+    </div>
+
     <div class="col-4">
       <label for="myclient" class="text-primary">Select Specialization</label>
-      <select class="form-control" (change)="getDoctorsBySpecialization()" [(ngModel)]="selectedSpecialization">
-        <option value="">Select </option>
+      <select class="form-control" (change)="getRatingsBySpecialization()" [(ngModel)]="selectedSpecialization">
+        <option value="">Select</option>
         <option *ngFor="let item of specializations" [value]="item">{{item}}</option>
       </select>
     </div>
 
     <div class="col-4">
-      <label for="myclient" class="text-primary">Select Doctor</label>
-      <select class="form-control" (change)="getTimeslotByDoctor()" [(ngModel)]="selectedDoctor">
-        <option value="">Select </option>
-        <option *ngFor="let item of doctors" [ngValue]="item">{{ item.doctorName }}</option>
-      </select>      
+      <label for="myclient" class="text-primary">Select Rating</label>
+      <select class="form-control" (change)="getDoctorsBySpecializationAndCityAndRating()" [(ngModel)]="selectedRating">
+        <option value="">Select</option>
+        <option *ngFor="let item of ratings" [value]="item" [selected]="item === selectedRating">{{item}}</option>
+      </select>
     </div>
 
     <div class="col-4">
-      <label for="myclient" class="text-primary">Select TimeSlot</label>
-      <select class="form-control" [(ngModel)]="selectedTimeslot">
-        <option value="">Select </option>
-        <option *ngFor="let item of timeslots" [value]="item">{{item.availableDateTime}}</option>
+      <label for="myclient" class="text-primary">Select Doctor</label>
+      <select class="form-control" (change)="getTimeslotDateByDoctor()" [(ngModel)]="selectedDoctor">
+        <option value="">Select</option>
+        <option *ngFor="let item of doctors" [value]="item" [selected]="item === selectedDoctor">{{item.doctorName}}</option>
       </select>
     </div>
+    
+    <div class="col-4">
+      <label for="myclient" class="text-primary">Select Date</label>
+      <select class="form-control" [(ngModel)]="selectedTimeslotDate">
+        <option value="">Select</option>
+        <option *ngFor="let item of timeslotDates" [value]="item">{{item}}</option>
+      </select>
+    </div>
+
+    <!-- <div class="col-4">
+      <label for="myclient" class="text-primary">Select Time</label>
+      <select class="form-control" [(ngModel)]="selectedTimeslotTime">
+        <option value="">Select</option>
+        <option *ngFor="let item of timeslots" [value]="item">{{item.availableTime}}</option>
+      </select>
+    </div> -->
+
   </div>
- 
-  <div class="row mt-4">
+
+  <!-- <div class="row mt-4">
     <div class="col-6 text-end">
       <button class="btn btn-info" (click)="refreshData()">Refresh</button>
     </div>
@@ -37,7 +63,7 @@
       <button class="btn btn-primary" (click)="saveAppointment()">Save</button>
     </div>
   </div>
-</div>
+</div> -->
 
 <div class="modal" id="myModal">
   <div class="modal-dialog">
@@ -46,9 +72,7 @@
         <h4 class="modal-title">Modal Heading</h4>
         <button type="button" class="btn-close" (click)="CloseModel()" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body">
-
-      </div>
+      <div class="modal-body"></div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
       </div>

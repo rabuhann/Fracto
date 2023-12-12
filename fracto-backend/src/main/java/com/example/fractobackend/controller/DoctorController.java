@@ -1,5 +1,6 @@
 package com.example.fractobackend.controller;
 
+import com.example.fractobackend.entity.City;
 import com.example.fractobackend.exception.ResourceNotFoundException;
 import com.example.fractobackend.entity.Doctor;
 import com.example.fractobackend.repository.DoctorRepository;
@@ -75,10 +76,34 @@ public class DoctorController {
         return doctorService.getAllSpecializations();
     }
 
+
+
     @GetMapping("/specialization/{specialization}")
     public List<Doctor> getDoctorsBySpecialization(@PathVariable String specialization) {
         // Convert hyphens back to spaces
         specialization = specialization.replace("-", " ");
         return doctorService.getDoctorsBySpecialization(specialization);
     }
+
+    // http://localhost:8080/api/v1/ratings?specialization=Cardiology&cityId=1
+
+    @GetMapping("/ratings")
+    public List<Integer> getRatingsBySpecializationAndCity(
+            @RequestParam String specialization,
+            @RequestParam Long cityId
+    ) {
+        specialization = specialization.replace("-", " ");
+        return doctorRepository.findRatingsBySpecializationAndCity(specialization, cityId);
+    }
+
+    @GetMapping("/doctor-names")
+    public List<Doctor> getDoctorBySpecializationAndCityAndRating(
+            @RequestParam String specialization,
+            @RequestParam Long cityId,
+            @RequestParam int ratings
+    ) {
+        specialization = specialization.replace("-", " ");
+        return doctorRepository.findDoctorBySpecializationAndCityAndRating(specialization, cityId, ratings);
+    }
+
 }
