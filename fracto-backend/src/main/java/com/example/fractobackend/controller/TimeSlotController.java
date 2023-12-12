@@ -28,4 +28,9 @@ public class TimeSlotController {
     public List<String> findTimeSlotDateByDoctorAndStatus(@RequestParam  Long doctorId, @RequestParam  String status) {
         return timeSlotServiceImpl.getTimeSlotDateByDoctorAndStatus(doctorId, status);
     }
+
+    @GetMapping("/time-slots/time/")
+    public List<String> findTimeSlotTimeByDoctorAndStatusAndDate(@RequestParam  Long doctorId, @RequestParam  String status, @RequestParam String availableDate) {
+        return timeSlotServiceImpl.getTimeSlotTimeByDoctorAndStatusAndDate(doctorId, status, availableDate);
+    }
 }

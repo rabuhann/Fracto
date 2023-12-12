@@ -25,4 +25,8 @@ public class TimeSlotServiceImpl implements TimeSlotService {
     public List<String> getTimeSlotDateByDoctorAndStatus(Long doctorId, String status) {
         return timeSlotRepository.findTimeSlotDateByDoctorAndStatus(doctorId, status);
     }
+
+    public List<String> getTimeSlotTimeByDoctorAndStatusAndDate(Long doctorId, String status, String availableDate) {
+        return timeSlotRepository.findTimeSlotTimeByDoctorAndStatusAndDate(doctorId, status, availableDate);
+    }
 }
