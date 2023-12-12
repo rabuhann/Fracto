@@ -28,7 +28,7 @@
       </ul>
       <button *ngIf="! isLoggedIn()" type="button" class="btn btn-success" style="height: 40px;" routerLink="/login">Login</button>
       <button *ngIf="isLoggedIn()" type="button" class="btn btn-danger" style="height: 40px;" (click)="logout()" >Logout</button>
-      <button *ngIf="! isLoggedIn()" type="button" class="btn btn-info" routerLink="/create-user" style="margin-left: 10px; color: white;">Sign Up</button>
+      <button *ngIf="! isLoggedIn()" type="button" class="btn btn-info" routerLink="/app-signup" style="margin-left: 10px; color: white;">Sign Up</button>
     </div>
   </div>
 </nav>

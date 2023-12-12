@@ -156,10 +156,15 @@ export class CreateAppointmentComponent implements OnInit {
     }
   }
 
+  // http://localhost:8080/api/v1/make-appointment?u_id=user_id
   //  saveAppointment() {
-  //     if (this.selectedTimeslot) {
-  //        // Here you can use this.selectedTimeslot.availableDateTime or any other properties
-  //        console.log('Selected Timeslot:', this.selectedTimeslot);
+  //     if (this.selectedDoctor) {
+  //       const selectedDoctorId = this.selectedDoctor.doctorId;
+         
+  //       this.http.get<string[]>('http://localhost:8080/api/v1/make-appointment?u_id=' + this.selectedTimeslotDate)
+  //       .subscribe((result: string[]) => {
+  //         this.timeslotTimes = result; // Assuming you have a timeslots array
+  //       })
   //     }
   //     // Implement your save logic here
   //  }
