@@ -20,6 +20,11 @@
           >User Dashboard</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/book-app"
+          *ngIf="userService.roleMatch(['ROLE_USER'])"
+          >Book Appointment</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/create-user"
           *ngIf="userService.roleMatch(['ROLE_ADMIN'])"
           >Add User</a>

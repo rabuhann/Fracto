@@ -26,4 +26,13 @@ public interface TimeSlotRepository extends JpaRepository<TimeSlot, Long> {
             @Param("status") String status,
             @Param("availableDate") String availableDate
     );
+
+    // SELECT timeslot_id FROM timeslots WHERE doctor_id = 1 AND status = "Available" AND available_date = "12/12/2023" AND available_time = "13:00";
+    @Query("SELECT DISTINCT t.timeslotId FROM TimeSlot t WHERE t.doctor.doctorId = :doctorId AND t.status = :status AND t.availableDate = :availableDate AND t.availableTime = :availableTime")
+    List<Long> findTimeSlotIDTimeByDoctorAndStatusAndDateAndTime(
+            @Param("doctorId") Long doctorId,
+            @Param("status") String status,
+            @Param("availableDate") String availableDate,
+            @Param("availableTime") String availableTime
+    );
 }

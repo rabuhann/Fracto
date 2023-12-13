@@ -9,6 +9,7 @@ import { CreateUserComponent } from './create-user/create-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { SignupComponent } from './signup/signup.component';
+import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'create-user', component: CreateUserComponent },
   { path: 'update-user/:id', component: UpdateUserComponent },
   { path: 'user-details/:id', component: UserDetailsComponent },
-  { path: 'app-signup', component: SignupComponent }
+  { path: 'app-signup', component: SignupComponent },
+  { path: 'book-app', component: CreateAppointmentComponent }
 
 ];
 

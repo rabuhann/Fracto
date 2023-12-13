@@ -18,6 +18,7 @@ import { UpdateUserComponent } from './update-user/update-user.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 import { SignupComponent } from './signup/signup.component';
+import { UserAppointmentsComponent } from './user-appointments/user-appointments.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SignupComponent } from './signup/signup.component';
     UpdateUserComponent,
     UserDetailsComponent,
     CreateAppointmentComponent,
-    SignupComponent
+    SignupComponent,
+    UserAppointmentsComponent
   ],
   imports: [
     BrowserModule,

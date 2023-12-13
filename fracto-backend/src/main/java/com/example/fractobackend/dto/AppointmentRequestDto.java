@@ -1,7 +1,5 @@
 package com.example.fractobackend.dto;
 
-import com.example.fractobackend.entity.Appointment;
-import com.example.fractobackend.entity.City;
 import com.example.fractobackend.entity.Doctor;
 
 public class AppointmentRequestDto {

@@ -1,5 +1,10 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Timeslot } from '../_classes/timeslot';
+import { Appointment } from '../_classes/appointment';
+import { TimeslotService } from '../_services/timeslot.service';
+import { AppointmentService } from '../_services/appointment.service';
 
 @Component({
   selector: 'app-create-appointment',
@@ -7,13 +12,13 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./create-appointment.component.css']
 })
 export class CreateAppointmentComponent implements OnInit {
-  saveAppointment() {
-    throw new Error('Method not implemented.');
-  }
 
   @ViewChild('myclient') client!: ElementRef | undefined;
 
-  constructor(private http: HttpClient, private renderer: Renderer2, private elementRef: ElementRef) { }
+  constructor(private timeslotService: TimeslotService,
+    private http: HttpClient, private renderer: Renderer2, 
+    private elementRef: ElementRef, private router: Router,
+    private appointmentService: AppointmentService) { }
 
   changeColor() {
     const button = this.elementRef.nativeElement.querySelector('button');
@@ -57,6 +62,10 @@ export class CreateAppointmentComponent implements OnInit {
   timeslots: any[] = [];
   timeslotDates: string[] = [];
   timeslotTimes: string[] = [];
+
+  timeslot: Timeslot = new Timeslot;
+
+  appointment: Appointment = new Appointment;
 
   ngOnInit() {
     this.loadCities();
@@ -157,19 +166,48 @@ export class CreateAppointmentComponent implements OnInit {
   }
 
   // http://localhost:8080/api/v1/make-appointment?u_id=user_id
-  //  saveAppointment() {
-  //     if (this.selectedDoctor) {
-  //       const selectedDoctorId = this.selectedDoctor.doctorId;
-         
-  //       this.http.get<string[]>('http://localhost:8080/api/v1/make-appointment?u_id=' + this.selectedTimeslotDate)
-  //       .subscribe((result: string[]) => {
-  //         this.timeslotTimes = result; // Assuming you have a timeslots array
-  //       })
-  //     }
-  //     // Implement your save logic here
-  //  }
+  saveAppointment() {
+    console.log("Entered saveAppointment");
+    if (this.selectedDoctor && this.selectedTimeslotDate && this.selectedTimeslotTime) {
+      const selectedDoctorId = this.selectedDoctor.doctorId;
+  
+      this.timeslot.doctorId = selectedDoctorId;
+      this.timeslot.availableDate = this.selectedTimeslotDate;
+      this.timeslot.availableTime = this.selectedTimeslotTime;
+      this.timeslot.status = "Available";
+      console.log("Entered saveAppointment if statement");
+  
+      this.timeslotService.getTimeslotId(this.timeslot).subscribe(
+        (data: number[]) => {
+          // Assuming the API returns an array, extract the first element
+          const timeslotId = data.length > 0 ? data[0] : -1;
+  
+          console.log("Timeslot ID:", timeslotId);
 
-  refreshData() {
-    // Implement your refresh logic here
+
+          this.appointment.doctorId = selectedDoctorId;
+          this.appointment.timeslotId = timeslotId;
+          
+
+          this.appointmentService.bookAppointment(3, this.appointment);
+
+          this.goToUserDash();
+        },
+        error => {
+          console.error(error); // Access the error message from the response
+        }
+      );
+    }
+    // Implement your save logic here
+  }
+  
+
+  goToUserDash() {
+    this.router.navigate(['/user']);
+  }
+
+  onSubmit() {
+    console.log("Entered onSubmit");
+    this.saveAppointment();
   }
 }
