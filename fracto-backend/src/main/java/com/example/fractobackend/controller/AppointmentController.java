@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.fractobackend.dto.TimeSlotDto;
+import com.example.fractobackend.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.web.bind.annotation.*;
+
 
 import com.example.fractobackend.dto.AppointmentRequestDto;
 import com.example.fractobackend.entity.Appointment;
@@ -47,8 +52,13 @@ public class AppointmentController {
 	private TimeSlotRepository timeSlotRepository;
 	@Autowired
 	private EmailSenderService emailService;
+
 	@Autowired
 	private AppointmentRepository appoRepo;
+
+  @Autowired
+	private AppointmentServiceImpl appointmentServiceImpl;
+
 	
 	@PostMapping("/make-appointment")
 	public String make_appoinment(@RequestBody AppointmentRequestDto appo, @RequestParam(name = "u_id") Long id) {
@@ -88,7 +98,7 @@ public class AppointmentController {
 //		
 		
 	}
-	
+
 
 	// api/v1/appointment/{appointment_id}
 	@PutMapping("/appointment/{id}")

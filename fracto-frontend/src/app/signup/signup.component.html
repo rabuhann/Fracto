@@ -9,7 +9,7 @@
 </style>
 
 <div class="col-md-6 offset-md-3">
-    <h3> Add User </h3>
+    <h3> Sign Up </h3>
     <form (ngSubmit)="onSubmit()">
 
         <div class="form-group">
@@ -26,14 +26,6 @@
             <label> Password</label>
             <input type="text" class="form-control" id="password" [(ngModel)]="user.password" name="password">
         </div>
-
-        <div class="form-group">
-            <label for="myclient" class="text-primary">Select Role</label>
-            <select class="form-control" [(ngModel)]="selectedRole" name="selectedRole">
-              <option value="">Select</option>
-              <option *ngFor="let item of roles" [ngValue]="item">{{ item.name }}</option>
-            </select>
-          </div>                   
 
         <button class="btn btn-success" type="submit" style="margin-top: 20px;">Submit</button>
 
