@@ -1,0 +1,21 @@
+<h2> Appointments </h2>
+<table class = "table table-striped" *ngIf="appointments && appointments.length > 0">
+    <thead>
+        <tr>
+            <th> Doctor </th>
+            <th> Time Slot </th>
+            <th> Status </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let appointment of appointments">
+            <td>{{ appointment.doctorId }}</td>
+            <td>{{ appointment.timeslotId }}</td>
+            <td>{{ appointment.status }}</td>
+            <td>
+                <button (click)="cancelAppointment(3)" class="btn btn-info"> Cancel</button>
+            </td>
+          </tr>
+    </tbody>
+</table>
+<div *ngIf="!appointments || appointments.length === 0">No appointments available.</div>

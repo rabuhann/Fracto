@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserAuthService } from './user-auth.service';
-import { User, Role } from '../user';
+import { User, Role } from '../_classes/user';
 import { Observable, of } from 'rxjs';  // Import of from 'rxjs'
 import { catchError, map } from 'rxjs/operators';
 
@@ -42,6 +42,10 @@ export class UserService {
     }
 
     return false;  // No match found
+  }
+
+  getRoles(): any {
+    return this.userAuthService.getRoles();
   }
 
   getUsersList(): Observable<User[]> {

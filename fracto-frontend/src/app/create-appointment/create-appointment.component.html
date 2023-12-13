@@ -33,49 +33,26 @@
       <label for="myclient" class="text-primary">Select Doctor</label>
       <select class="form-control" (change)="getTimeslotDateByDoctor()" [(ngModel)]="selectedDoctor">
         <option value="">Select</option>
-        <option *ngFor="let item of doctors" [value]="item" [selected]="item === selectedDoctor">{{item.doctorName}}</option>
+        <option *ngFor="let item of doctors" [value]="item" [selected]="item === selectedDoctor">{{item.doctorName}}
+        </option>
       </select>
     </div>
-    
+
     <div class="col-4">
       <label for="myclient" class="text-primary">Select Date</label>
-      <select class="form-control" [(ngModel)]="selectedTimeslotDate">
+      <select class="form-control" (change)="getTimeslotTimeByDoctor()" [(ngModel)]="selectedTimeslotDate">
         <option value="">Select</option>
         <option *ngFor="let item of timeslotDates" [value]="item">{{item}}</option>
       </select>
     </div>
 
-    <!-- <div class="col-4">
+    <div class="col-4">
       <label for="myclient" class="text-primary">Select Time</label>
       <select class="form-control" [(ngModel)]="selectedTimeslotTime">
         <option value="">Select</option>
-        <option *ngFor="let item of timeslots" [value]="item">{{item.availableTime}}</option>
+        <option *ngFor="let item of timeslotTimes" [value]="item">{{item}}</option>
       </select>
-    </div> -->
-
-  </div>
-
-  <!-- <div class="row mt-4">
-    <div class="col-6 text-end">
-      <button class="btn btn-info" (click)="refreshData()">Refresh</button>
-    </div>
-    <div class="col-6">
-      <button class="btn btn-primary" (click)="saveAppointment()">Save</button>
     </div>
   </div>
-</div> -->
 
-<div class="modal" id="myModal">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header bg-primary text-white">
-        <h4 class="modal-title">Modal Heading</h4>
-        <button type="button" class="btn-close" (click)="CloseModel()" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body"></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
+  <button class="btn btn-success" type="button" style="margin-top: 20px;" (click)="onSubmit()">Submit</button>
