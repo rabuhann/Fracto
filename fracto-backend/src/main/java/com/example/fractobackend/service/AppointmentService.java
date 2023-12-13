@@ -1,5 +1,8 @@
 package com.example.fractobackend.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.example.fractobackend.entity.Appointment;
 import com.example.fractobackend.entity.User;
 import com.example.fractobackend.exception.ResourceNotFoundException;
@@ -13,4 +16,6 @@ public interface AppointmentService {
 
     //Cancel appointment
     public String cancel(Appointment appointment);
+    //All appointments by user
+    public List<Object[]> getAllAppointmentsByUser(Long id);
 }

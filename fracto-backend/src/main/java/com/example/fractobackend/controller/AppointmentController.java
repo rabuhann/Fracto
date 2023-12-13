@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,11 +23,14 @@ import com.example.fractobackend.entity.Doctor;
 import com.example.fractobackend.entity.TimeSlot;
 import com.example.fractobackend.entity.User;
 import com.example.fractobackend.exception.ResourceNotFoundException;
+import com.example.fractobackend.repository.AppointmentRepository;
 import com.example.fractobackend.repository.DoctorRepository;
 import com.example.fractobackend.repository.TimeSlotRepository;
 import com.example.fractobackend.repository.UserRepository;
 import com.example.fractobackend.service.AppointmentServiceImpl;
 import com.example.fractobackend.service.EmailSenderService;
+
+
 
 @CrossOrigin
 @RestController
@@ -44,6 +47,8 @@ public class AppointmentController {
 	private TimeSlotRepository timeSlotRepository;
 	@Autowired
 	private EmailSenderService emailService;
+	@Autowired
+	private AppointmentRepository appoRepo;
 	
 	@PostMapping("/make-appointment")
 	public String make_appoinment(@RequestBody AppointmentRequestDto appo, @RequestParam(name = "u_id") Long id) {
@@ -97,5 +102,14 @@ public class AppointmentController {
         emailService.sendEmail(appointment.getUserAppo().getEmail(), "Fracto Appointment Cancellation", cancelMessage);
         return ResponseEntity.ok(response);
     }
+	
+	@GetMapping("/all-appointments")
+	public List<Object[]>  allAppointmentsByUser(@RequestParam(name = "u_id") Long id){
+		
+		List<Object[]> appointment = appointmentService.getAllAppointmentsByUser(id);
+ 
+        return appointment;
+		
+	}
 
 }
