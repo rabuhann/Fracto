@@ -43,10 +43,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 		
 		return "Canceled";
 	}
-
 	@Override
-	public List<Object[]> getAppointmentsByUserId(Long userId) {
-		return appointmentRepository.findAppointmentsByUserId(userId);
+	public List<Object[]> getAllAppointmentsByUser(Long id) {
+		return appointmentRepository.findAppointmentByUser(id);
+			  
 	}
+
+
 
 }
