@@ -85,7 +85,7 @@ public class AppointmentController {
         return ResponseEntity.ok(response);
     }
 
-	@PostMapping ("/appointments")
+	@GetMapping ("/appointments")
 	public List<Object[]> findAppointmentsByUserId(@RequestParam(name = "userId") Long userId) {
 		return appointmentServiceImpl.getAppointmentsByUserId(userId);
 	}

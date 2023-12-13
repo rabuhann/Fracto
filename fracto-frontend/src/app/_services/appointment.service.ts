@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Appointment } from '../_classes/appointment';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 
 @Injectable({
@@ -22,8 +22,32 @@ export class AppointmentService {
       return this.httpclient.post<Object[]>(this.PATH_OF_API + '/make-appointment', appointment, { params });
     }
 
-    getAppointmentsList(): Observable<Appointment[]> {
-      return this.httpclient.get<Appointment[]>(this.PATH_OF_API + '/appointments');
+    getAppointmentsList(userId: number): Observable<Appointment[]> {
+      return this.httpclient.get<any[]>(this.PATH_OF_API + '/appointments?userId=' + userId)
+        .pipe(
+          map(data => data.map(appointmentData => this.mapAppointment(appointmentData)))
+        );
     }
-    
+  
+    private mapAppointment(data: any): Appointment {
+      return {
+        appointmentId: null!,
+        doctor: {
+          doctorId: null!, // Use 'null!' to assert that it's not null, modify this according to your structure
+          doctorName: data[0],
+          ratings: null!, // Replace with actual values
+          specialization: null!, // Replace with actual values
+          cityId: null! // Replace with actual values
+        },
+        timeslot: {
+          timeslotId: null!, // Use 'null!' to assert that it's not null, modify this according to your structure
+          availableDate: data[1],
+          availableTime: data[2],
+          status: null!, // Assuming data[3] is the status
+          doctorId: null! // Use 'null!' to assert that it's not null, modify this according to your structure
+        },
+        userId: null!, // Use 'null!' to assert that it's not null, modify this according to your structure
+        status: data[3] // Assuming data[4] is the status in the appointment
+      };
+    }
 }

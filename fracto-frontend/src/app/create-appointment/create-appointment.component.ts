@@ -185,8 +185,8 @@ export class CreateAppointmentComponent implements OnInit {
           console.log("Timeslot ID:", timeslotId);
 
 
-          this.appointment.doctorId = selectedDoctorId;
-          this.appointment.timeslotId = timeslotId;
+          this.appointment.doctor.doctorId = selectedDoctorId;
+          this.appointment.timeslot.timeslotId = timeslotId;
           
 
           this.appointmentService.bookAppointment(3, this.appointment);
