@@ -84,7 +84,7 @@ public class AppointmentController {
         Appointment appointment = appointmentService.findById(id);
 
 		TimeSlot timeSlot = timeSlotRepository.findById(appointment.getTimeSlot().getTimeslotId())
-				.orElseThrow(() -> new ResourceNotFoundException("Time slot doesn't exists with id: " + appo.getTimeSlot_id()));
+				.orElseThrow(() -> new ResourceNotFoundException("Time slot doesn't exists with id: " + appointment.getTimeSlot().getTimeslotId()));
 
 		timeSlot.setStatus("Available");
 

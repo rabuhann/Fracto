@@ -15,7 +15,7 @@
             <td>{{ appointment.timeslot.availableTime }}</td>
             <td>{{ appointment.status }}</td>
             <td>
-                <button (click)="cancelAppointment(3)" class="btn btn-info"> Cancel</button>
+                <button (click)="cancelAppointment(appointment.appointmentId)" class="btn btn-info"> Cancel</button>
             </td>
           </tr>
     </tbody>

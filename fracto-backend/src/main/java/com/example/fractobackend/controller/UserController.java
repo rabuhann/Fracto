@@ -44,8 +44,6 @@ public class UserController {
     // Create user Rest API
     @PostMapping("/users")
     public ResponseEntity<Map<String, Object>> createUser(@RequestBody User userDetails, @RequestParam(name = "role") String role) {
-        System.out.println("Entered method");
-
         // add check for email exists in DB
         if(userRepository.existsByEmail(userDetails.getEmail())){
             return new ResponseEntity<>(Collections.singletonMap("error", "Email is already taken!"), HttpStatus.BAD_REQUEST);
@@ -57,10 +55,8 @@ public class UserController {
         user.setEmail(userDetails.getEmail());
         user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
 
-        System.out.println(role);
         Role roles = roleRepository.findByName(role).get();
         user.setRoles(Collections.singleton(roles));
-        System.out.println(user.getRoles());
 
         userRepository.save(user);
 
@@ -88,10 +84,8 @@ public class UserController {
 
         user.setUsername((userDetails.getUsername()));
         user.setEmail(userDetails.getEmail());
-        // user.setRoles(userDetails.getRoles());
         user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
 
-        System.out.println("Path Parameter Role" + role);
         Role roles = roleRepository.findByName(role).orElseThrow(() -> new ResourceNotFoundException("Role not found with name: " + role));
 
         Set<Role> updatedRoles = new HashSet<>(user.getRoles());

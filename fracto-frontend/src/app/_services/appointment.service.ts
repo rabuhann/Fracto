@@ -3,6 +3,7 @@ import { Appointment } from '../_classes/appointment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
+import { AppointmentDetails } from '../_classes/appointment-details';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +15,19 @@ export class AppointmentService {
     private httpclient: HttpClient
     ) { }
 
-    public bookAppointment(userId: number, payload: any): Observable<Object[]> {
+    public bookAppointment(userId: number, appointment: AppointmentDetails): Observable<AppointmentDetails[]> {
       console.log("Entered bookAppointment in the service");
-      console.log(payload);
       
       const params = new HttpParams().set('u_id', userId.toString());
+
+      console.log(appointment);
     
-      return this.httpclient.post<Object[]>(this.PATH_OF_API + '/make-appointment', payload, { params });
+      return this.httpclient.post<AppointmentDetails[]>(this.PATH_OF_API + '/make-appointment?u_id=' + params, appointment);
     }
+
+    cancelAppointment(id: number): Observable<Object> {
+      return this.httpclient.put(this.PATH_OF_API + '/appointment/' + id, {});
+    }    
 
     getAppointmentsList(userId: number): Observable<Appointment[]> {
       return this.httpclient.get<any[]>(this.PATH_OF_API + '/appointments?userId=' + userId)
@@ -32,23 +38,23 @@ export class AppointmentService {
   
     private mapAppointment(data: any): Appointment {
       return {
-        appointmentId: null!,
+        appointmentId: data[0]!,
         doctor: {
           doctorId: null!,
-          doctorName: data[0],
+          doctorName: data[1],
           ratings: null!,
           specialization: null!,
           cityId: null!
         },
         timeslot: {
           timeslotId: null!,
-          availableDate: data[1],
-          availableTime: data[2],
+          availableDate: data[2],
+          availableTime: data[3],
           status: null!,
           doctorId: null!
         },
         userId: null!,
-        status: data[3]
+        status: data[4]
       };
     }
 }

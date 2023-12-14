@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/co
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Timeslot } from '../_classes/timeslot';
-import { Appointment } from '../_classes/appointment';
+import { AppointmentDetails } from '../_classes/appointment-details';
 import { TimeslotService } from '../_services/timeslot.service';
 import { AppointmentService } from '../_services/appointment.service';
 import { Doctor } from '../_classes/doctor';
@@ -66,7 +66,8 @@ export class CreateAppointmentComponent implements OnInit {
 
   timeslot: Timeslot = new Timeslot;
   doctor: Doctor = new Doctor;
-  appointment: Appointment = new Appointment;
+
+  appointment: AppointmentDetails = new AppointmentDetails;
 
   ngOnInit() {
     this.loadCities();
@@ -187,18 +188,16 @@ export class CreateAppointmentComponent implements OnInit {
 
 
 
-          // this.appointment.timeslot = this.timeslot;
-          // this.appointment.timeslot.timeslotId = timeslotId;
-          // this.appointment.doctor = this.doctor;
-          // this.appointment.doctor.doctorId = selectedDoctorId;
+          this.appointment.timeslot_id = timeslotId;
+          this.appointment.doctor_id = selectedDoctorId;
 
-          const newAppointmentPayload = {
-            doctorId: selectedDoctorId,
-            timeSlotId: timeslotId
-          };
+          // const newAppointmentPayload = {
+          //   doctorId: selectedDoctorId,
+          //   timeSlotId: timeslotId
+          // };
           
 
-          this.appointmentService.bookAppointment(3, newAppointmentPayload);
+          this.appointmentService.bookAppointment(1, this.appointment);
 
           this.goToUserDash();
         },

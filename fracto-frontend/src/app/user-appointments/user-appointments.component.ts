@@ -23,17 +23,18 @@ export class UserAppointmentsComponent {
   }
 
   private getAppointments() {
-    this.appointmentService.getAppointmentsList(3).subscribe((data: Appointment[]) => {
+    this.appointmentService.getAppointmentsList(1).subscribe((data: Appointment[]) => {
       console.log(data);  // Log data to console
       this.appointments = data;
     });
   }
 
   cancelAppointment(id: number){
-    // this.userService.deleteUser(id).subscribe( (data: any) => {
-    //   console.log(data);
-    //   this.getUsers();
-    // })
+    console.log(id);
+    this.appointmentService.cancelAppointment(id).subscribe( (data: any) => {
+      console.log(data);
+      this.getAppointments();
+    })
   }
 
 }

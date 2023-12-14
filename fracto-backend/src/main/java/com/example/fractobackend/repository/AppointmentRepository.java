@@ -23,7 +23,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment,Long>{
 	WHERE a.user_id = 3;
 	 */
 
-    @Query("SELECT d.doctorName, t.availableDate, t.availableTime, t.status " +
+    @Query("SELECT a.appointmentId, d.doctorName, t.availableDate, t.availableTime, a.status " +
             "FROM Appointment a " +
             "JOIN Doctor d ON a.doctor.doctorId = d.doctorId " +
             "JOIN TimeSlot t ON a.timeSlot.timeslotId = t.timeslotId " +
