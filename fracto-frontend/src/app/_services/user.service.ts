@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { UserAuthService } from './user-auth.service';
 import { User, Role } from '../_classes/user';
 import { Observable, of } from 'rxjs';  // Import of from 'rxjs'
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -12,16 +12,43 @@ import { catchError, map } from 'rxjs/operators';
 export class UserService {
   private PATH_OF_API = 'http://localhost:8080/api/v1';
   private baseURL = "http://localhost:8080/api/v1/users";
+  private tokenKey = 'auth_token';
 
   constructor(
     private httpclient: HttpClient,
     private userAuthService: UserAuthService
   ) { }
 
-  public login(loginData: any) {
-    return this.httpclient.post(this.PATH_OF_API + '/login', loginData, {
-    });
-  }
+/* */
+public login(loginData: any) {
+  return this.httpclient.post<any>(this.PATH_OF_API + '/login', loginData, {
+  }).pipe(tap(response => this.setToken(response.token)));
+}
+
+private setToken(token: string): void {
+  localStorage.setItem(this.tokenKey, token);
+}
+
+public getToken(): string | null {
+  return localStorage.getItem(this.tokenKey);
+}
+
+public removeToken(): void {
+  localStorage.removeItem(this.tokenKey);
+  localStorage.removeItem('user_email');
+}
+
+logout() {
+  this.removeToken();
+}
+
+isLoggedIn(): boolean {
+  return !!this.getToken();
+}
+
+
+/* */
+  
 
   public signUp(user: User): Observable<Object> {
     return this.httpclient.post(this.PATH_OF_API + '/signup', user, {

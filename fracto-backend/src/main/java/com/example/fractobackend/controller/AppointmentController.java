@@ -125,8 +125,8 @@ public class AppointmentController {
   
 	@GetMapping ("/appointments")
 	public List<Object[]> findAppointmentsByUserId(@RequestParam(name = "userId") Long userId) {
-		return appointmentServiceImpl.getAppointmentsByUserId(userId);
-	
+		return appointmentServiceImpl.getAllAppointmentsByUser(userId);
+	}
 	@GetMapping("/all-appointments")
 	public List<Object[]>  allAppointmentsByUser(@RequestParam(name = "u_id") Long id){
 		

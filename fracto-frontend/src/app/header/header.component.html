@@ -1,39 +1,56 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Fracto</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/home">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/admin"
-          *ngIf="userService.roleMatch(['ROLE_ADMIN'])"
-          >Admin Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/user"
-          *ngIf="userService.roleMatch(['ROLE_USER'])"
-          >User Dashboard</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/book-app"
-          *ngIf="userService.roleMatch(['ROLE_USER'])"
-          >Book Appointment</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/create-user"
-          *ngIf="userService.roleMatch(['ROLE_ADMIN'])"
-          >Add User</a>
-        </li>
-       
-      </ul>
-      <button *ngIf="! isLoggedIn()" type="button" class="btn btn-success" style="height: 40px;" routerLink="/login">Login</button>
-      <button *ngIf="isLoggedIn()" type="button" class="btn btn-danger" style="height: 40px;" (click)="logout()" >Logout</button>
-      <button *ngIf="! isLoggedIn()" type="button" class="btn btn-info" routerLink="/app-signup" style="margin-left: 10px; color: white;">Sign Up</button>
-    </div>
+
+ <!-- ======= Header ======= -->
+ <header id="header" class="fixed-top">
+  <div class="container d-flex align-items-center container-fluid">
+
+    <h1 class="logo me-auto"><a href="index.html">Fracto</a></h1>
+    <!-- Uncomment below if you prefer to use an image logo -->
+    <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+    <nav id="navbar" class="navbar order-last order-lg-0 navbar-expand-lg">
+      <!-- <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <li *ngIf="! isLoggedIn()" ><a class="nav-link scrollto" href="#about">About</a></li>
+          <li *ngIf="! isLoggedIn()"><a class="nav-link scrollto" href="#services">Services</a></li>
+          <li *ngIf="! isLoggedIn()"><a class="nav-link scrollto" href="#departments">Departments</a></li>
+          <li *ngIf="! isLoggedIn()"><a class="nav-link scrollto" href="#doctors">Doctors</a></li>
+          <li *ngIf="! isLoggedIn()"><a class="nav-link scrollto" href="#contact">Contact</a></li>
+          <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/home">Home</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/admin"
+            *ngIf="userService.roleMatch(['ROLE_ADMIN'])"
+            >Admin Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/user"
+            *ngIf="userService.roleMatch(['ROLE_USER'])"
+            >User Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/book-app"
+            *ngIf="userService.roleMatch(['ROLE_USER'])"
+            >Book Appointment</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/create-user"
+            *ngIf="userService.roleMatch(['ROLE_ADMIN'])"
+            >Add User</a>
+          </li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+        <!-- </div>
+      </div> -->
+    </nav><!-- .navbar -->
+
+    <a href="" *ngIf="! isLoggedIn()" class="appointment-btn" routerLink="/login"><span class="d-none d-md-inline">Log In</span></a>
+    <a href="" *ngIf="isLoggedIn()" class="appointment-btn btn-danger" (click)="logout()"><span class="d-none d-md-inline">Log Out</span></a>
+    <a href="" *ngIf="! isLoggedIn()" class="appointment-btn" routerLink="/app-signup"><span class="d-none d-md-inline">Sign Up</span></a>
+
   </div>
-</nav>
+</header><!-- End Header -->
+
+

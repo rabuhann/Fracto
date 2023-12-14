@@ -6,8 +6,20 @@ import { Injectable } from '@angular/core';
 })
 export class UserAuthService {
   private _isAuthenticated = false;
+  private user_email ='';
 
   constructor() {}
+
+  /*** */
+  public setUserEmail(value: string){
+    this.user_email = value;
+    localStorage.setItem('user_email', value);
+  }
+  public getUserEmail():any{
+    //eturn this.user_email;
+    return localStorage.getItem('user_email');
+  }
+/*** */
 
   public setAuthenticated(value: boolean) {
     this._isAuthenticated = value;
