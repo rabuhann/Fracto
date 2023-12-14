@@ -51,11 +51,15 @@ public class AppointmentController {
 		
 		TimeSlot timeSlot = timeSlotRepository.findById(appo.getTimeSlot_id())
                 .orElseThrow(() -> new ResourceNotFoundException("Time slot doesn't exists with id: " + appo.getTimeSlot_id()));
-		
+
+		timeSlot.setStatus("Unavailable");
+
 		appointment.setDoctor(doctor);
 		appointment.setTimeSlot(timeSlot);
 		appointment.setStatus("Active");
 
+		System.out.println("Doctor " + appointment.getDoctor());
+		System.out.println("Appointment " + appointment.getTimeSlot());
 				
 		List<Appointment> all_appo= new ArrayList<>();
 		
@@ -78,6 +82,12 @@ public class AppointmentController {
 	@PutMapping("/appointment/{id}")
     public ResponseEntity<Map<String, Boolean>> cancel_appoinment(@PathVariable Long id) {
         Appointment appointment = appointmentService.findById(id);
+
+		TimeSlot timeSlot = timeSlotRepository.findById(appointment.getTimeSlot().getTimeslotId())
+				.orElseThrow(() -> new ResourceNotFoundException("Time slot doesn't exists with id: " + appo.getTimeSlot_id()));
+
+		timeSlot.setStatus("Available");
+
         String msg = appointmentService.cancel(appointment);
         Map<String, Boolean> response = new HashMap<>();
         response.put(msg, Boolean.TRUE);
