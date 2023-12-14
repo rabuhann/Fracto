@@ -2,9 +2,10 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/co
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Timeslot } from '../_classes/timeslot';
-import { Appointment } from '../_classes/appointment';
+import { AppointmentDetails } from '../_classes/appointment-details';
 import { TimeslotService } from '../_services/timeslot.service';
 import { AppointmentService } from '../_services/appointment.service';
+import { Doctor } from '../_classes/doctor';
 
 @Component({
   selector: 'app-create-appointment',
@@ -64,8 +65,9 @@ export class CreateAppointmentComponent implements OnInit {
   timeslotTimes: string[] = [];
 
   timeslot: Timeslot = new Timeslot;
+  doctor: Doctor = new Doctor;
 
-  appointment: Appointment = new Appointment;
+  appointment: AppointmentDetails = new AppointmentDetails;
 
   ngOnInit() {
     this.loadCities();
@@ -185,11 +187,17 @@ export class CreateAppointmentComponent implements OnInit {
           console.log("Timeslot ID:", timeslotId);
 
 
-          this.appointment.doctorId = selectedDoctorId;
-          this.appointment.timeslotId = timeslotId;
+
+          this.appointment.timeslot_id = timeslotId;
+          this.appointment.doctor_id = selectedDoctorId;
+
+          // const newAppointmentPayload = {
+          //   doctorId: selectedDoctorId,
+          //   timeSlotId: timeslotId
+          // };
           
 
-          this.appointmentService.bookAppointment(3, this.appointment);
+          this.appointmentService.bookAppointment(1, this.appointment);
 
           this.goToUserDash();
         },

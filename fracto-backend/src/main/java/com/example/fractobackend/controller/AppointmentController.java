@@ -73,11 +73,15 @@ public class AppointmentController {
 		
 		TimeSlot timeSlot = timeSlotRepository.findById(appo.getTimeSlot_id())
                 .orElseThrow(() -> new ResourceNotFoundException("Time slot doesn't exists with id: " + appo.getTimeSlot_id()));
-		
+
+		timeSlot.setStatus("Unavailable");
+
 		appointment.setDoctor(doctor);
 		appointment.setTimeSlot(timeSlot);
 		appointment.setStatus("Active");
 
+		System.out.println("Doctor " + appointment.getDoctor());
+		System.out.println("Appointment " + appointment.getTimeSlot());
 				
 		List<Appointment> all_appo= new ArrayList<>();
 		
@@ -104,6 +108,12 @@ public class AppointmentController {
 	@PutMapping("/appointment/{id}")
     public ResponseEntity<Map<String, Boolean>> cancel_appoinment(@PathVariable Long id) {
         Appointment appointment = appointmentService.findById(id);
+
+		TimeSlot timeSlot = timeSlotRepository.findById(appointment.getTimeSlot().getTimeslotId())
+				.orElseThrow(() -> new ResourceNotFoundException("Time slot doesn't exists with id: " + appointment.getTimeSlot().getTimeslotId()));
+
+		timeSlot.setStatus("Available");
+
         String msg = appointmentService.cancel(appointment);
         Map<String, Boolean> response = new HashMap<>();
         response.put(msg, Boolean.TRUE);
@@ -112,6 +122,10 @@ public class AppointmentController {
         emailService.sendEmail(appointment.getUserAppo().getEmail(), "Fracto Appointment Cancellation", cancelMessage);
         return ResponseEntity.ok(response);
     }
+  
+	@GetMapping ("/appointments")
+	public List<Object[]> findAppointmentsByUserId(@RequestParam(name = "userId") Long userId) {
+		return appointmentServiceImpl.getAppointmentsByUserId(userId);
 	
 	@GetMapping("/all-appointments")
 	public List<Object[]>  allAppointmentsByUser(@RequestParam(name = "u_id") Long id){
