@@ -52,16 +52,16 @@ export class UserService {
     return this.httpclient.get<User[]>(this.baseURL);
   }
 
-  createUser(user: User): Observable<Object> {
-    return this.httpclient.post(this.baseURL, user);
+  createUser(user: User, role: string): Observable<Object> {
+    return this.httpclient.post(this.baseURL + '?role=' + role, user);
   }
 
   getUserById(id: number): Observable<User> {
     return this.httpclient.get<User>(this.baseURL + '/' + id)
   }
 
-  updateUser(id: number, user: User): Observable<Object> {
-    return this.httpclient.put(this.baseURL + '/' + id, user);
+  updateUser(id: number, user: User, role: string): Observable<Object> {
+    return this.httpclient.put(this.baseURL + '/' + id + '?role=' + role, user);
   }
 
   deleteUser(id: number): Observable<Object> {

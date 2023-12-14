@@ -3,17 +3,19 @@
     <thead>
         <tr>
             <th> Doctor </th>
-            <th> Time Slot </th>
+            <th> Date </th>
+            <th> Time </th>
             <th> Status </th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let appointment of appointments">
-            <td>{{ appointment.doctorId }}</td>
-            <td>{{ appointment.timeslotId }}</td>
+            <td>{{ appointment.doctor.doctorName }}</td>
+            <td>{{ appointment.timeslot.availableDate }}</td>
+            <td>{{ appointment.timeslot.availableTime }}</td>
             <td>{{ appointment.status }}</td>
             <td>
-                <button (click)="cancelAppointment(3)" class="btn btn-info"> Cancel</button>
+                <button (click)="cancelAppointment(appointment.appointmentId)" class="btn btn-info"> Cancel</button>
             </td>
           </tr>
     </tbody>
