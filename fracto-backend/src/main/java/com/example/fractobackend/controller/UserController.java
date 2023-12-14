@@ -82,17 +82,24 @@ public class UserController {
 
     // Update user REST API
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails, @RequestParam(name = "role") String role) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User doesn't exists with id: " + id));
 
         user.setUsername((userDetails.getUsername()));
         user.setEmail(userDetails.getEmail());
-        user.setRoles(userDetails.getRoles());
+        // user.setRoles(userDetails.getRoles());
         user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
 
-        User updatedUser = userRepository.save(user);
-        return ResponseEntity.ok(updatedUser);
+        System.out.println("Path Parameter Role" + role);
+        Role roles = roleRepository.findByName(role).orElseThrow(() -> new ResourceNotFoundException("Role not found with name: " + role));
+
+        Set<Role> updatedRoles = new HashSet<>(user.getRoles());
+        updatedRoles.add(roles);  // Add the new role or update as needed
+        user.setRoles(updatedRoles);
+
+        userRepository.save(user);
+        return ResponseEntity.ok(user);
     }
 
     // Delete user REST API

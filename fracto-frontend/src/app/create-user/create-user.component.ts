@@ -11,7 +11,6 @@ import { UserService } from '../_services/user.service';
 export class CreateUserComponent {
 
   user: User = new User();
-  selectedRoles: Role[] = [];
   selectedRole: string = '';
   roles: string[] = ["ROLE_ADMIN", "ROLE_USER"];
 
@@ -19,7 +18,6 @@ export class CreateUserComponent {
 
   saveUser() {
     console.log("selected Role", this.selectedRole);
-    console.log(this.selectedRoles);
   
     this.userService.createUser(this.user, this.selectedRole).subscribe(
       data => {

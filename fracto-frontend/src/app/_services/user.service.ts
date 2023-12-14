@@ -60,8 +60,8 @@ export class UserService {
     return this.httpclient.get<User>(this.baseURL + '/' + id)
   }
 
-  updateUser(id: number, user: User): Observable<Object> {
-    return this.httpclient.put(this.baseURL + '/' + id, user);
+  updateUser(id: number, user: User, role: string): Observable<Object> {
+    return this.httpclient.put(this.baseURL + '/' + id + '?role=' + role, user);
   }
 
   deleteUser(id: number): Observable<Object> {

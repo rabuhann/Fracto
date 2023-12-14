@@ -12,6 +12,8 @@ export class UpdateUserComponent implements OnInit {
 
   id!: number;
   user!: User;
+  selectedRole: string = '';
+  roles: string[] = ["ROLE_ADMIN", "ROLE_USER"];
   
   constructor(private userService: UserService, private router: Router,
     private route: ActivatedRoute,) {  }
@@ -24,15 +26,8 @@ export class UpdateUserComponent implements OnInit {
     }, error => console.log(error));
   }
 
-  // saveUser() {
-  //   this.userService.createUser(this.user).subscribe( data => {
-  //     console.log(data);
-  //     this.goToUserList();
-  //   } )
-  // }
-
   onSubmit() {
-    this.userService.updateUser(this.id, this.user).subscribe( data =>{
+    this.userService.updateUser(this.id, this.user, this.selectedRole).subscribe( data =>{
       this.goToUserList();
     }
     , error => console.log(error));
