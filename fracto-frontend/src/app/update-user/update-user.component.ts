@@ -24,12 +24,12 @@ export class UpdateUserComponent implements OnInit {
     }, error => console.log(error));
   }
 
-  saveUser() {
-    this.userService.createUser(this.user).subscribe( data => {
-      console.log(data);
-      this.goToUserList();
-    } )
-  }
+  // saveUser() {
+  //   this.userService.createUser(this.user).subscribe( data => {
+  //     console.log(data);
+  //     this.goToUserList();
+  //   } )
+  // }
 
   onSubmit() {
     this.userService.updateUser(this.id, this.user).subscribe( data =>{

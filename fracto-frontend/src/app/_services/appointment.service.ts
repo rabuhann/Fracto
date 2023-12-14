@@ -14,12 +14,13 @@ export class AppointmentService {
     private httpclient: HttpClient
     ) { }
 
-    public bookAppointment(userId: number, appointment: Appointment): Observable<Object[]> {
+    public bookAppointment(userId: number, payload: any): Observable<Object[]> {
       console.log("Entered bookAppointment in the service");
+      console.log(payload);
       
       const params = new HttpParams().set('u_id', userId.toString());
     
-      return this.httpclient.post<Object[]>(this.PATH_OF_API + '/make-appointment', appointment, { params });
+      return this.httpclient.post<Object[]>(this.PATH_OF_API + '/make-appointment', payload, { params });
     }
 
     getAppointmentsList(userId: number): Observable<Appointment[]> {
@@ -33,21 +34,21 @@ export class AppointmentService {
       return {
         appointmentId: null!,
         doctor: {
-          doctorId: null!, // Use 'null!' to assert that it's not null, modify this according to your structure
+          doctorId: null!,
           doctorName: data[0],
-          ratings: null!, // Replace with actual values
-          specialization: null!, // Replace with actual values
-          cityId: null! // Replace with actual values
+          ratings: null!,
+          specialization: null!,
+          cityId: null!
         },
         timeslot: {
-          timeslotId: null!, // Use 'null!' to assert that it's not null, modify this according to your structure
+          timeslotId: null!,
           availableDate: data[1],
           availableTime: data[2],
-          status: null!, // Assuming data[3] is the status
-          doctorId: null! // Use 'null!' to assert that it's not null, modify this according to your structure
+          status: null!,
+          doctorId: null!
         },
-        userId: null!, // Use 'null!' to assert that it's not null, modify this according to your structure
-        status: data[3] // Assuming data[4] is the status in the appointment
+        userId: null!,
+        status: data[3]
       };
     }
 }

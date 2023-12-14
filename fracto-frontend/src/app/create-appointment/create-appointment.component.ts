@@ -5,6 +5,7 @@ import { Timeslot } from '../_classes/timeslot';
 import { Appointment } from '../_classes/appointment';
 import { TimeslotService } from '../_services/timeslot.service';
 import { AppointmentService } from '../_services/appointment.service';
+import { Doctor } from '../_classes/doctor';
 
 @Component({
   selector: 'app-create-appointment',
@@ -64,7 +65,7 @@ export class CreateAppointmentComponent implements OnInit {
   timeslotTimes: string[] = [];
 
   timeslot: Timeslot = new Timeslot;
-
+  doctor: Doctor = new Doctor;
   appointment: Appointment = new Appointment;
 
   ngOnInit() {
@@ -185,11 +186,19 @@ export class CreateAppointmentComponent implements OnInit {
           console.log("Timeslot ID:", timeslotId);
 
 
-          this.appointment.doctor.doctorId = selectedDoctorId;
-          this.appointment.timeslot.timeslotId = timeslotId;
+
+          // this.appointment.timeslot = this.timeslot;
+          // this.appointment.timeslot.timeslotId = timeslotId;
+          // this.appointment.doctor = this.doctor;
+          // this.appointment.doctor.doctorId = selectedDoctorId;
+
+          const newAppointmentPayload = {
+            doctorId: selectedDoctorId,
+            timeSlotId: timeslotId
+          };
           
 
-          this.appointmentService.bookAppointment(3, this.appointment);
+          this.appointmentService.bookAppointment(3, newAppointmentPayload);
 
           this.goToUserDash();
         },

@@ -52,8 +52,8 @@ export class UserService {
     return this.httpclient.get<User[]>(this.baseURL);
   }
 
-  createUser(user: User): Observable<Object> {
-    return this.httpclient.post(this.baseURL, user);
+  createUser(user: User, role: string): Observable<Object> {
+    return this.httpclient.post(this.baseURL + '?role=' + role, user);
   }
 
   getUserById(id: number): Observable<User> {
