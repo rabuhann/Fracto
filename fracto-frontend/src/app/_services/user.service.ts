@@ -21,6 +21,7 @@ export class UserService {
 
 /* */
 public login(loginData: any) {
+  console.log(loginData);
   return this.httpclient.post<any>(this.PATH_OF_API + '/login', loginData, {
   }).pipe(tap(response => this.setToken(response.token)));
 }
@@ -36,6 +37,7 @@ public getToken(): string | null {
 public removeToken(): void {
   localStorage.removeItem(this.tokenKey);
   localStorage.removeItem('user_email');
+  localStorage.removeItem('user_id');
 }
 
 logout() {

@@ -1,19 +1,18 @@
-<div class="mt-1 mb-2 p-3 bg-primary text-white text-center">
+<div class="mt-1 mb-2 p-3  text-primary text-center">
   <h1>Book an Appointment</h1>
 </div>
 
 <div class="container">
   <div class="row">
-
-    <div class="col-4">
+    <div class="col-6">
       <label for="myclient" class="text-primary">Select City</label>
-      <select class="form-control" (change)="getSpecializationsByCity()" [(ngModel)]="selectedCity">
-        <option value="">Select</option>
+      <select class="form-control" (change)="getSpecializationsByCity()" [(ngModel)]="selectedCity" place-holder="Select City">
+        <option value="" selected="true">Select</option>
         <option *ngFor="let item of cities" [ngValue]="item">{{ item.cityName }}</option>
       </select>
     </div>
 
-    <div class="col-4">
+    <div class="col-6">
       <label for="myclient" class="text-primary">Select Specialization</label>
       <select class="form-control" (change)="getRatingsBySpecialization()" [(ngModel)]="selectedSpecialization">
         <option value="">Select</option>
@@ -21,7 +20,7 @@
       </select>
     </div>
 
-    <div class="col-4">
+    <div class="col-6">
       <label for="myclient" class="text-primary">Select Rating</label>
       <select class="form-control" (change)="getDoctorsBySpecializationAndCityAndRating()" [(ngModel)]="selectedRating">
         <option value="">Select</option>
@@ -29,7 +28,7 @@
       </select>
     </div>
 
-    <div class="col-4">
+    <div class="col-6">
       <label for="myclient" class="text-primary">Select Doctor</label>
       <select class="form-control" (change)="getTimeslotDateByDoctor()" [(ngModel)]="selectedDoctor">
         <option value="">Select</option>
@@ -38,7 +37,7 @@
       </select>
     </div>
 
-    <div class="col-4">
+    <div class="col-6">
       <label for="myclient" class="text-primary">Select Date</label>
       <select class="form-control" (change)="getTimeslotTimeByDoctor()" [(ngModel)]="selectedTimeslotDate">
         <option value="">Select</option>
@@ -46,7 +45,7 @@
       </select>
     </div>
 
-    <div class="col-4">
+    <div class="col-6">
       <label for="myclient" class="text-primary">Select Time</label>
       <select class="form-control" [(ngModel)]="selectedTimeslotTime">
         <option value="">Select</option>
@@ -54,5 +53,7 @@
       </select>
     </div>
   </div>
-
-  <button class="btn btn-success" type="button" style="margin-top: 20px;" (click)="onSubmit()">Submit</button>
+<div class="text-center">
+  <button class="btn btn-success" type="button" style="margin-top: 20px;" (click)="onSubmit()">Book Now</button>
+</div>
+  

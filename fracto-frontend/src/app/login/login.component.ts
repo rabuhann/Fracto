@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
       (response: any) => {
         this.userAuthService.setRoles(response.user.roles);
         /* */
-        this.userAuthService.setUserEmail(response.user.email);
+        this.userAuthService.setUserId(response.user.id);
         console.log(this.userService.getToken());
         /* */
         const role = response.user.roles[0].name;

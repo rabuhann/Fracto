@@ -6,18 +6,18 @@ import { Injectable } from '@angular/core';
 })
 export class UserAuthService {
   private _isAuthenticated = false;
-  private user_email ='';
+  private user_id!: number;
 
   constructor() {}
 
   /*** */
-  public setUserEmail(value: string){
-    this.user_email = value;
-    localStorage.setItem('user_email', value);
+  public setUserId(value: any){
+    this.user_id = value;
+    localStorage.setItem('user_id', value);
   }
-  public getUserEmail():any{
+  public getUserId():any{
     //eturn this.user_email;
-    return localStorage.getItem('user_email');
+    return localStorage.getItem('user_id');
   }
 /*** */
 

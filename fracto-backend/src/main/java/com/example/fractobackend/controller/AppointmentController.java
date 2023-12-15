@@ -61,19 +61,20 @@ public class AppointmentController {
 
 	
 	@PostMapping("/make-appointment")
-	public String make_appoinment(@RequestBody AppointmentRequestDto appo, @RequestParam(name = "u_id") Long id) {
+	public void make_appoinment(@RequestBody AppointmentRequestDto appo, @RequestParam(name = "u_id") Long id) {
 		//post api url : http://localhost:8080/api/v1/make-appointment?u_id=user_id
+		System.out.println("Id found "+id);
 		User user = userRepo.getById(id);
-		
+		System.out.println("Time Name Id "+appo.getTimeSlot_id());
 		Appointment appointment = new Appointment();
 		appointment.setUserAppo(user);
-		
+		System.out.println("Doctor Name Id "+appo.getDoctor_id());
 		Doctor doctor = doctorRepository.findById(appo.getDoctor_id())
                 .orElseThrow(() -> new ResourceNotFoundException("Doctor doesn't exists with id: " + id));
-		
+		System.out.println("Time Name Id "+appo.getTimeSlot_id());
 		TimeSlot timeSlot = timeSlotRepository.findById(appo.getTimeSlot_id())
                 .orElseThrow(() -> new ResourceNotFoundException("Time slot doesn't exists with id: " + appo.getTimeSlot_id()));
-
+		
 		timeSlot.setStatus("Unavailable");
 
 		appointment.setDoctor(doctor);
@@ -91,7 +92,7 @@ public class AppointmentController {
 		String confirmation = "Appoinment Successfully Scheduled at "+timeSlot.getAvailableTime()+" on "+timeSlot.getAvailableDate();
 		emailService.sendEmail(user.getEmail(),"Fracto Appoinment",confirmation);
 		
-		return appointmentService.makeAppoinment(user);
+		appointmentService.makeAppoinment(user);
 		
 		//Post json body example
 //		{

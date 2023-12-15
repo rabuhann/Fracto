@@ -18,17 +18,22 @@ export class RoleGuard implements CanActivate {
     const allowedRoles = next.data['roles'] as string[];
     
     if (allowedRoles && allowedRoles.length > 0) {
-        const userRoles = this.authService.getRoles();
+        const userRoles: any = this.authService.getRoles();
 
       // Check if the user has at least one of the required roles
-      if (userRoles.some(role => allowedRoles.includes(role))) {
-        console.log(userRoles);
-        return true;
-      } else {
-        // Redirect to unauthorized page or handle unauthorized access
-        //this.router.navigate(['/login']);
-        return false;
+      for (let i = 0; i < userRoles.length; i++) {
+        for (let j = 0; j < allowedRoles.length; j++) {
+          if (userRoles[i].name === allowedRoles[j]) {
+            console.log("i'm here")
+            return true;  // Found a match, no need to continue checking
+          }else {
+            // Redirect to unauthorized page or handle unauthorized access
+            //this.router.navigate(['/login']);
+            return false;
+          }
+        }
       }
+       
     }
 
     // If no roles are specified for the route, allow access

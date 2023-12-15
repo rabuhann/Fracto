@@ -18,14 +18,14 @@ const routes: Routes = [
   { path: '', component: LandingPageComponent },
   { path: 'home', component: HomeComponent },
   { path: 'admin', component: AdminComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_ADMIN'] }},
-  { path: 'user', component: UserComponent , canActivate: [AuthGuard]},
+  { path: 'user', component: UserComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_USER'] }},
   { path: 'login', component: LoginComponent },
   { path: 'forbidden', component: ForbiddenComponent },
   { path: 'create-user', component: CreateUserComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_ADMIN'] }},
   { path: 'update-user/:id', component: UpdateUserComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_ADMIN'] }},
   { path: 'user-details/:id', component: UserDetailsComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_ADMIN'] }},
   { path: 'app-signup', component: SignupComponent },
-  { path: 'book-app', component: CreateAppointmentComponent , canActivate: [AuthGuard]},
+  { path: 'book-app', component: CreateAppointmentComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_USER'] }},
 
 ];
 

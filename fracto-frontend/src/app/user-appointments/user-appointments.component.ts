@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Appointment } from '../_classes/appointment';
 import { AppointmentService } from '../_services/appointment.service';
 import { Router } from '@angular/router';
+import { UserAuthService } from '../_services/user-auth.service';
 
 @Component({
   selector: 'app-user-appointments',
@@ -13,17 +14,18 @@ export class UserAppointmentsComponent {
 
   appointments: Appointment[];
 
-  constructor(private appointmentService: AppointmentService,
+  constructor(private appointmentService: AppointmentService, private userAuthService:UserAuthService,
     private router: Router) {
     this.appointments = [];
   }
 
   ngOnInit(): void {
+    // console.log(this.userAuthService.getUserId());
     this.getAppointments();
   }
 
   private getAppointments() {
-    this.appointmentService.getAppointmentsList(1).subscribe((data: Appointment[]) => {
+    this.appointmentService.getAppointmentsList(this.userAuthService.getUserId()).subscribe((data: Appointment[]) => {
       console.log(data);  // Log data to console
       this.appointments = data;
     });
