@@ -47,7 +47,7 @@ export class UserListComponent implements OnInit {
     })
   }
 
-  getAppointments(id: number) {
+  viewAppointments(id: number) {
     this.router.navigate(['user-appointments-details', id]);
   }
 }

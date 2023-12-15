@@ -38,7 +38,7 @@ import { LandingPageComponent } from './landingpage/landing-page.component';
     CreateAppointmentComponent,
     SignupComponent,
     UserAppointmentsComponent,
-    UserAppointmentsDetailsComponent
+    UserAppointmentsDetailsComponent,
     LandingPageComponent
   ],
   imports: [

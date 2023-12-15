@@ -14,6 +14,7 @@ import { UserAppointmentsDetailsComponent } from './user-appointments-details/us
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import { LandingPageComponent } from './landingpage/landing-page.component';
+import { UserAppointmentsComponent } from './user-appointments/user-appointments.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'book-app', component: CreateAppointmentComponent },
   { path: 'user-appointments-details/:id', component: UserAppointmentsDetailsComponent },
   { path: 'book-app', component: CreateAppointmentComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_USER'] }},
+  { path: 'user-appointments/:id', component: UserAppointmentsComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_ADMIN'] }},
 ];
 
 @NgModule({

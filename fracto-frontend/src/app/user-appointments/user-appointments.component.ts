@@ -25,6 +25,7 @@ export class UserAppointmentsComponent {
   }
 
   private getAppointments() {
+    console.log('user id ', this.userAuthService.getUserId());
     this.appointmentService.getAppointmentsList(this.userAuthService.getUserId()).subscribe((data: Appointment[]) => {
       console.log(data);  // Log data to console
       this.appointments = data;

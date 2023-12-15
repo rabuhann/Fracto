@@ -105,6 +105,9 @@ public class UserController {
         // Remove associations with roles
         user.setRoles(null); // or user.getRoles().clear();
 
+        // Remove associations with roles
+        user.setAppointments(null); // or user.getRoles().clear();
+
         userRepository.delete(user);
 
         Map<String, Boolean> response = new HashMap<>();
