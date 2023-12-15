@@ -27,6 +27,7 @@ export class UpdateUserComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('selected role ', this.selectedRole);
     this.userService.updateUser(this.id, this.user, this.selectedRole).subscribe( data =>{
       this.goToUserList();
     }

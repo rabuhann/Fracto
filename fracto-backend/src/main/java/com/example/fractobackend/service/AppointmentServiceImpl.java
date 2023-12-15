@@ -45,7 +45,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 	@Override
 	public List<Object[]> getAllAppointmentsByUser(Long id) {
-		return appointmentRepository.findAppointmentByUser(id);
+		return appointmentRepository.findAppointmentsByUserId(id);
 			  
 	}
 

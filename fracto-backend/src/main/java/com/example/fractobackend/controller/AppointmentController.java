@@ -123,7 +123,7 @@ public class AppointmentController {
         emailService.sendEmail(appointment.getUserAppo().getEmail(), "Fracto Appointment Cancellation", cancelMessage);
         return ResponseEntity.ok(response);
     }
-  
+
 	@GetMapping ("/appointments")
 	public List<Object[]> findAppointmentsByUserId(@RequestParam(name = "userId") Long userId) {
 		return appointmentServiceImpl.getAllAppointmentsByUser(userId);
