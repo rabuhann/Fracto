@@ -6,6 +6,7 @@ import { AppointmentDetails } from '../_classes/appointment-details';
 import { TimeslotService } from '../_services/timeslot.service';
 import { AppointmentService } from '../_services/appointment.service';
 import { Doctor } from '../_classes/doctor';
+import { UserAuthService } from '../_services/user-auth.service';
 
 @Component({
   selector: 'app-create-appointment',
@@ -19,7 +20,7 @@ export class CreateAppointmentComponent implements OnInit {
   constructor(private timeslotService: TimeslotService,
     private http: HttpClient, private renderer: Renderer2, 
     private elementRef: ElementRef, private router: Router,
-    private appointmentService: AppointmentService) { }
+    private appointmentService: AppointmentService,private userAuthService:UserAuthService) { }
 
   changeColor() {
     const button = this.elementRef.nativeElement.querySelector('button');
@@ -186,10 +187,8 @@ export class CreateAppointmentComponent implements OnInit {
   
           console.log("Timeslot ID:", timeslotId);
 
-
-
-          this.appointment.timeslot_id = timeslotId;
           this.appointment.doctor_id = selectedDoctorId;
+          this.appointment.timeSlot_id = timeslotId;
 
           // const newAppointmentPayload = {
           //   doctorId: selectedDoctorId,
@@ -197,14 +196,21 @@ export class CreateAppointmentComponent implements OnInit {
           // };
           
 
-          this.appointmentService.bookAppointment(1, this.appointment);
+          //this.appointmentService.bookAppointment(7, this.appointment);
 
-          this.goToUserDash();
+          //this.goToUserDash();
         },
         error => {
           console.error(error); // Access the error message from the response
         }
       );
+
+      let user_id:number = this.userAuthService.getUserId();
+      console.log("User Id ho "+user_id);
+      this.appointmentService.bookAppointment(user_id, this.appointment).subscribe((data: any[])=>{
+        //console.log(data);
+        this.goToUserDash();
+      });
     }
     // Implement your save logic here
   }

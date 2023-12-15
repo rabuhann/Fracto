@@ -22,7 +22,7 @@ export class AppointmentService {
 
       console.log(appointment);
     
-      return this.httpclient.post<AppointmentDetails[]>(this.PATH_OF_API + '/make-appointment?u_id=' + params, appointment);
+      return this.httpclient.post<AppointmentDetails[]>(this.PATH_OF_API + '/make-appointment?' + params, appointment);
     }
 
     cancelAppointment(id: number): Observable<Object> {

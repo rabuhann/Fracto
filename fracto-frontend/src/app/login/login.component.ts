@@ -22,6 +22,10 @@ export class LoginComponent implements OnInit {
     this.userService.login(loginForm.value).subscribe(
       (response: any) => {
         this.userAuthService.setRoles(response.user.roles);
+        /* */
+        this.userAuthService.setUserId(response.user.id);
+        console.log(this.userService.getToken());
+        /* */
         const role = response.user.roles[0].name;
         if (role === 'ROLE_ADMIN') {
           this.router.navigate(['/admin']);

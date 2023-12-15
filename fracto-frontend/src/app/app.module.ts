@@ -20,6 +20,7 @@ import { CreateAppointmentComponent } from './create-appointment/create-appointm
 import { SignupComponent } from './signup/signup.component';
 import { UserAppointmentsComponent } from './user-appointments/user-appointments.component';
 import { UserAppointmentsDetailsComponent } from './user-appointments-details/user-appointments-details.component';
+import { LandingPageComponent } from './landingpage/landing-page.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { UserAppointmentsDetailsComponent } from './user-appointments-details/us
     SignupComponent,
     UserAppointmentsComponent,
     UserAppointmentsDetailsComponent
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
