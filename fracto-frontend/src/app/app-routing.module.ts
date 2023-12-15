@@ -10,6 +10,7 @@ import { UpdateUserComponent } from './update-user/update-user.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { SignupComponent } from './signup/signup.component';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
+import { UserAppointmentsDetailsComponent } from './user-appointments-details/user-appointments-details.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import { LandingPageComponent } from './landingpage/landing-page.component';
@@ -25,8 +26,9 @@ const routes: Routes = [
   { path: 'update-user/:id', component: UpdateUserComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_ADMIN'] }},
   { path: 'user-details/:id', component: UserDetailsComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_ADMIN'] }},
   { path: 'app-signup', component: SignupComponent },
+  { path: 'book-app', component: CreateAppointmentComponent },
+  { path: 'user-appointments-details/:id', component: UserAppointmentsDetailsComponent },
   { path: 'book-app', component: CreateAppointmentComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_USER'] }},
-
 ];
 
 @NgModule({

@@ -19,6 +19,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserAppointmentsComponent } from './user-appointments/user-appointments.component';
+import { UserAppointmentsDetailsComponent } from './user-appointments-details/user-appointments-details.component';
 import { LandingPageComponent } from './landingpage/landing-page.component';
 
 @NgModule({
@@ -37,6 +38,7 @@ import { LandingPageComponent } from './landingpage/landing-page.component';
     CreateAppointmentComponent,
     SignupComponent,
     UserAppointmentsComponent,
+    UserAppointmentsDetailsComponent
     LandingPageComponent
   ],
   imports: [
