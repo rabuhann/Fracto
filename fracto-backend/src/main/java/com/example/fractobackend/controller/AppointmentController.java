@@ -9,7 +9,18 @@ import com.example.fractobackend.dto.TimeSlotDto;
 import com.example.fractobackend.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import org.springframework.web.bind.annotation.*;
+
 
 import com.example.fractobackend.dto.AppointmentRequestDto;
 import com.example.fractobackend.entity.Appointment;
@@ -17,10 +28,14 @@ import com.example.fractobackend.entity.Doctor;
 import com.example.fractobackend.entity.TimeSlot;
 import com.example.fractobackend.entity.User;
 import com.example.fractobackend.exception.ResourceNotFoundException;
+import com.example.fractobackend.repository.AppointmentRepository;
 import com.example.fractobackend.repository.DoctorRepository;
 import com.example.fractobackend.repository.TimeSlotRepository;
 import com.example.fractobackend.repository.UserRepository;
 import com.example.fractobackend.service.AppointmentServiceImpl;
+import com.example.fractobackend.service.EmailSenderService;
+
+
 
 @CrossOrigin
 @RestController
@@ -36,7 +51,14 @@ public class AppointmentController {
 	@Autowired
 	private TimeSlotRepository timeSlotRepository;
 	@Autowired
+	private EmailSenderService emailService;
+
+	@Autowired
+	private AppointmentRepository appoRepo;
+
+  @Autowired
 	private AppointmentServiceImpl appointmentServiceImpl;
+
 	
 	@PostMapping("/make-appointment")
 	public String make_appoinment(@RequestBody AppointmentRequestDto appo, @RequestParam(name = "u_id") Long id) {
@@ -65,6 +87,10 @@ public class AppointmentController {
 		
 		all_appo.add(appointment);
 		user.setAppointments(all_appo);
+		//Sending confirmation
+		String confirmation = "Appoinment Successfully Scheduled at "+timeSlot.getAvailableTime()+" on "+timeSlot.getAvailableDate();
+		emailService.sendEmail(user.getEmail(),"Fracto Appoinment",confirmation);
+		
 		return appointmentService.makeAppoinment(user);
 		
 		//Post json body example
@@ -91,12 +117,23 @@ public class AppointmentController {
         String msg = appointmentService.cancel(appointment);
         Map<String, Boolean> response = new HashMap<>();
         response.put(msg, Boolean.TRUE);
-      
+        //Send cancellation message
+        String cancelMessage = "You have successfully cancelled your appointment";
+        emailService.sendEmail(appointment.getUserAppo().getEmail(), "Fracto Appointment Cancellation", cancelMessage);
         return ResponseEntity.ok(response);
     }
-
+  
 	@GetMapping ("/appointments")
 	public List<Object[]> findAppointmentsByUserId(@RequestParam(name = "userId") Long userId) {
 		return appointmentServiceImpl.getAppointmentsByUserId(userId);
+	
+	@GetMapping("/all-appointments")
+	public List<Object[]>  allAppointmentsByUser(@RequestParam(name = "u_id") Long id){
+		
+		List<Object[]> appointment = appointmentService.getAllAppointmentsByUser(id);
+ 
+        return appointment;
+		
 	}
+
 }
