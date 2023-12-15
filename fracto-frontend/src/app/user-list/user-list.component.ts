@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../_classes/user';
 import { UserService } from '../_services/user.service';
 import { Router } from '@angular/router';
+import { Appointment } from '../_classes/appointment';
 import { AppointmentService } from '../_services/appointment.service';
-
 
 @Component({
   selector: 'app-user-list',
@@ -13,9 +13,11 @@ import { AppointmentService } from '../_services/appointment.service';
 export class UserListComponent implements OnInit {
 
   users: User[];
+  appointments: Appointment[];
 
-  constructor(private userService: UserService,
+  constructor(private userService: UserService, private appointmentService: AppointmentService,
     private router: Router) {
+    this.appointments = [];
     this.users = [];
   }
 
@@ -46,6 +48,6 @@ export class UserListComponent implements OnInit {
   }
 
   viewAppointments(id: number) {
-    this.router.navigate(['user-appointments', id]);
+    this.router.navigate(['user-appointments-details', id]);
   }
 }
