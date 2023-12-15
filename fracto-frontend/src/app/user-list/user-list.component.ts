@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../_classes/user';
 import { UserService } from '../_services/user.service';
 import { Router } from '@angular/router';
+import { AppointmentService } from '../_services/appointment.service';
 
 
 @Component({
@@ -42,5 +43,9 @@ export class UserListComponent implements OnInit {
       console.log(data);
       this.getUsers();
     })
+  }
+
+  viewAppointments(id: number) {
+    this.router.navigate(['user-appointments', id]);
   }
 }

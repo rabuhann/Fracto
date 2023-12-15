@@ -13,6 +13,7 @@ import { CreateAppointmentComponent } from './create-appointment/create-appointm
 import { AuthGuard } from './guards/auth.guard';
 import { RoleGuard } from './guards/role.guard';
 import { LandingPageComponent } from './landingpage/landing-page.component';
+import { UserAppointmentsComponent } from './user-appointments/user-appointments.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'user-details/:id', component: UserDetailsComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_ADMIN'] }},
   { path: 'app-signup', component: SignupComponent },
   { path: 'book-app', component: CreateAppointmentComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_USER'] }},
+  { path: 'user-appointments/:id', component: UserAppointmentsComponent , canActivate: [AuthGuard, RoleGuard],  data: { roles: ['ROLE_ADMIN'] }},
 
 ];
 
