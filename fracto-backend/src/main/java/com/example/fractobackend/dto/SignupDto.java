@@ -5,7 +5,7 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 
 public class SignupDto {
-    private String userName;
+    private String username;
     private String email;
     private String password;
     private Collection<? extends GrantedAuthority> userType;
@@ -13,11 +13,11 @@ public class SignupDto {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserName(String username) {
+        this.username = username;
     }
 
     public String getEmail() {

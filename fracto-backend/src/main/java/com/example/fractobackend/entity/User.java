@@ -35,8 +35,9 @@ public class User {
 	private String email;
 	@Column(name="password")
 	private String password;
-
+	
 	@OneToMany(fetch = FetchType.LAZY,mappedBy="userAppo", cascade = CascadeType.ALL)
+	@JsonIgnore
 	private List<Appointment> appointments;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

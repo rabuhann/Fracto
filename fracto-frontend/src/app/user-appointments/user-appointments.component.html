@@ -6,6 +6,7 @@
             <th> Date </th>
             <th> Time </th>
             <th> Status </th>
+            <th> Action </th>
         </tr>
     </thead>
     <tbody>
@@ -14,9 +15,9 @@
             <td>{{ appointment.timeslot.availableDate }}</td>
             <td>{{ appointment.timeslot.availableTime }}</td>
             <td>{{ appointment.status }}</td>
-            <!-- <td>
-                <button (click)="cancelAppointment(appointment.appointmentId)" class="btn btn-info"> Cancel</button>
-            </td> -->
+            <td>
+                <button *ngIf="appointment.status !== 'Cancelled'" (click)="cancelAppointment(appointment.appointmentId)" class="btn btn-info"> Cancel</button>
+            </td>
           </tr>
     </tbody>
 </table>

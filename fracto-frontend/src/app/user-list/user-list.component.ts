@@ -12,7 +12,7 @@ import { AppointmentService } from '../_services/appointment.service';
 })
 export class UserListComponent implements OnInit {
 
-  users: User[];
+  users: any[];
   appointments: Appointment[];
 
   constructor(private userService: UserService, private appointmentService: AppointmentService,
@@ -26,9 +26,10 @@ export class UserListComponent implements OnInit {
   }
 
   private getUsers() {
-    this.userService.getUsersList().subscribe((data: User[]) => {
+    this.userService.getUsersList().subscribe((data: any[]) => {
       console.log(data);  // Log data to console
       this.users = data;
+      
     });
   }
 

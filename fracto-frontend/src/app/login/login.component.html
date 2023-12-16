@@ -9,7 +9,7 @@
             <div class="col-md-8">
               <div class="mb-4">
               <h3>Sign In</h3>
-              <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
+              <p class="mb-4">.</p>
             </div>
             <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
               <div class="form-group first">
@@ -22,7 +22,7 @@
                 <input type="password" ngModel name="password" id="password" placeholder="Enter your password" class="form-control" required="true">
                 
               </div>
-              
+              <p *ngIf="msg != ''" class="text-danger" >{{msg}}</p>
 
               <input type="submit" value="Log In" class="btn btn-block btn-primary">              
               

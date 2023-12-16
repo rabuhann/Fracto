@@ -38,7 +38,9 @@ public class UserController {
     // Get all users
     @GetMapping("/users")
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+    	System.out.println(userRepository.findAll().get(0));
+        //return userRepository.getAll();
+    	return  userRepository.getAll();
     }
 
     // Create user Rest API
@@ -81,7 +83,7 @@ public class UserController {
     public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails, @RequestParam(name = "role") String role) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User doesn't exists with id: " + id));
-
+        System.out.println(userDetails.getUsername());
         user.setUsername((userDetails.getUsername()));
         user.setEmail(userDetails.getEmail());
         user.setPassword(passwordEncoder.encode(userDetails.getPassword()));

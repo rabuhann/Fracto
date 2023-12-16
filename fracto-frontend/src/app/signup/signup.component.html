@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
     h3 {
         color: #1a73e8;
         text-align: center;
@@ -32,7 +32,7 @@
     </form>
 </div>
 
-
+ -->
 
 
 
@@ -52,11 +52,11 @@
             <form (ngSubmit)="onSubmit()">
               <div class="form-group first">
                 <label for="username">User Full name</label>
-                <input type="text" class="form-control" id="username" [(ngModel)]="user.username" name="username" placeholder="Enter your Full name" required="true">
+                <input type="text" class="form-control" id="userName" [(ngModel)]="user.username" name="userName" placeholder="Enter your Full name" required="true">
 
               </div>
               <div class="form-group first">
-                <label for="username">User Full name</label>
+                <label for="username">User Email</label>
                 <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" placeholder="Enter your Email" required="true">
 
               </div>

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -17,14 +18,17 @@ public class Appointment {
 	private Long appointmentId;
 
 	@ManyToOne(cascade = CascadeType.ALL)
+	@JsonIgnore
 	@JoinColumn(name = "doctor_id")
 	private Doctor doctor;
     
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User userAppo;
     
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
 	@JoinColumn(name = "timeslot_id")
 	private TimeSlot timeSlot;
     
